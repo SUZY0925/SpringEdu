@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,9 @@ $(document).ready(function() {
 	}
 	$("#day").html(day);
 	
+	var birth = year+""+month+""+day;
+	$("#birth").val(birth);
+	
 });
 /* function test() {
 	var arr = $("#date").val().split("-");
@@ -49,26 +53,38 @@ $(document).ready(function() {
 		<br />
 		<h3>회원가입</h3>
 		<hr />
-		<label class="col-lg-2">아이디</label><input type="email" name="id"
-			id="id" placeholder="abc@abc.com" class="form-control-sm" /> <br>
-		<label class="col-lg-2">비밀번호</label><input type="password"
-			name="passwd" id="passwd" class="form-control-sm" /> <br> <label
-			class="col-lg-2">비밀번호확인</label><input type="password"
-			name="passwd_chk" id="passwd_chk" class="form-control-sm" /> <br>
-		<label class="col-lg-2">이름</label><input type="text" name="name"
-			id="name" class="form-control-sm" /> <br> <label
-			class="col-lg-2">생년월일 </label>
+		<form:form comandName="memberVO" action="/member/memberJoinOK" method="post">
+		<label class="col-lg-2">아이디</label>
+		<form:input type="email" path="id" id="id" placeholder="abc@abc.com" class="form-control-sm" /> <br>
+		<form:input path="id" type="text" /> <form:errors path="id" type="text" />
+		
+		<label class="col-lg-2">비밀번호</label>
+		<form:input type="password" path="passwd" id="passwd" class="form-control-sm" /> <br>
+		<form:input path="passwd" type="text" /> <form:errors path="passwd" type="text" />
+		
+		<label class="col-lg-2">비밀번호확인</label>
+		<form:input type="password" path="passwd" id="passwd_chk" class="form-control-sm" /> <br>
+		<form:input path="passwd" type="text" /> <form:errors path="passwd" type="text" />
+		
+		<label class="col-lg-2">이름</label>
+		<form:input type="text"  path="name" id="name" class="form-control-sm" /> <br>
+		<form:input path="name" type="text" /> <form:errors path="name" type="text" />
+		
+		<label class="col-lg-2">생년월일 </label>
 		<!-- <input type="date" value="2018-01-01" id="date" name="date" /> <br> -->
-		<select name="year" id="year" class="form-control-sm">
-		</select>년 <select name="month" id="month" class="form-control-sm"></select>월 <select
-			name="day" id="day" class="form-control-sm">
-		</select>일 <br> <label class="col-lg-2">전화번호</label><input type="text"
-			name="phone" id="phone" class="form-control-sm" /> <br> <br>
-		<input type="button" value="회원가입" id="memJoin"
-			class="btn btn-outline-primary btn-sm"
-			onClick="javascript:location.href='/'"> <input type="button"
-			value="돌아가기" id="memJoin" class="btn btn-outline-dark btn-sm"
-			onClick="javascript:location.href='/'" />
+		<select name="year" id="year" class="form-control-sm"></select>년
+		<select name="month" id="month" class="form-control-sm"></select>월
+		<select	name="day" id="day" class="form-control-sm"></select>일 <br>
+		<form:input type="hidden" id="birth" path="birth"/>
+		<form:input path="birth" type="text" /> <form:errors path="birth" type="text" />		
+		
+		<label class="col-lg-2">전화번호</label>
+		<form:input type="text" path="phone" id="phone" class="form-control-sm" /> <br> <br>
+		<form:input path="phone" type="text" /> <form:errors path="phone" type="text" />
+		
+		<input type="submit" value="회원가입" id="memJoin" class="btn btn-outline-primary btn-sm">
+		<input type="button" value="돌아가기" id="memJoin" class="btn btn-outline-dark btn-sm" onClick="javascript:location.href='/'" />
+		</form:form>
 	</div>
 </body>
 </html>
