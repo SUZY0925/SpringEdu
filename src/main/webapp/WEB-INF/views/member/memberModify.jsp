@@ -43,20 +43,13 @@ $(function(){
 		}
 	});
 	
- 	$("#joinBtn").on("click",function(e){
+ 	$("#modifyBtn").on("click",function(e){
 		e.preventDefault();
 		$("form").submit();
 		
 	});
 	
-	$("#joinClearBtn").on("click",function(e){
-		e.preventDefault();		
-		  $("form").each(function(){
-			    this.reset();
-			  });
-	});	
-	
-	$("#joinCancelBtn").on("click",function(e){
+	$("#modifyCancelBtn").on("click",function(e){
 		e.preventDefault();		
 			location.href="/member/memberList";
 	});	 
@@ -72,9 +65,9 @@ $(function(){
 <body>
 	<div class="container">
 		<br />
-		<h3>회원가입</h3>
+		<h3>정보수정</h3>
 		<hr />
-		<form:form modelAttribute="memberVO" action="/member/memberJoinOK"
+		<form:form modelAttribute="memberVO" action="/member/memberModifyOK"
 			method="post">
 			<label class="col-lg-2">아이디</label>
 			<form:input path="id"
@@ -120,11 +113,9 @@ $(function(){
 			<br />
 			<br />
 
-			<input type="submit" value="회원가입" id="joinBtn"
+			<input type="submit" value="정보수정" id="modifyBtn"
 				class="btn btn-outline-primary btn-sm">
-			<input type="button" value="초기화" id="joinClearBtn"
-				class="btn btn-outline-primary btn-sm">
-			<input type="button" value="돌아가기" id="joinCancelBtn"
+			<input type="button" value="돌아가기" id="modifyCancelBtn"
 				class="btn btn-outline-dark btn-sm"/>
 		</form:form>
 	</div>

@@ -44,6 +44,8 @@ public class MemberDAOImplJDBC implements MemberDAO{
 		sql.append("select * from member where id=?");
 		
 		memberVO= (MemberVO) this.jdbcTemplate.queryForObject(sql.toString(), new Object[] {id},new BeanPropertyRowMapper<MemberVO>(MemberVO.class));
+		// queryForObject : 하나의 레코드 가져오기..
+		// BeanPropertyRowMapper : 
 		
 		return memberVO;
 	}
@@ -58,6 +60,7 @@ public class MemberDAOImplJDBC implements MemberDAO{
 		sql.append("select * from member");
 		
 		list = (ArrayList<MemberVO>) this.jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<MemberVO>(MemberVO.class));
+		// query : 여러개의 레코드를 List로 가져오기..
 		
 		return list;
 	}

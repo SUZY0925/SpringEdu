@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
  CHECK (GENDER IN ('M', 'W')) ENABLE, */
 public class MemberVO {
 	
-	@Pattern(regexp=" ^[\\w=\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="이메일 형식이 아닙니다.")
+	@Pattern(regexp="^[\\w=\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="이메일 형식이 아닙니다.")
 	private String id;
 	
 	@Size(min=4,max=30,message="비밀번호는 4-30byte로 입력해주세요.")
