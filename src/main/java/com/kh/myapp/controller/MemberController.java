@@ -1,16 +1,16 @@
 package com.kh.myapp.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,14 +19,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
-@Controller		
+@Controller
 @RequestMapping("/member")
 @SessionAttributes("memberVO")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	@Autowired
+	@Autowired(required=true)
+	//@Qualifier("memberServiceImpl")
+	@Qualifier("memberServiceImplXML")
 	MemberService memberService;
 	
 	
@@ -82,7 +84,7 @@ public class MemberController {
 	//회원목록
 	@RequestMapping(value = "/memberList")
 	public String memberList(Model model) {
-		ArrayList<MemberVO> alist = memberService.getMemberList();
+		List<MemberVO> alist = memberService.getMemberList();
 		model.addAttribute("memberVOS",alist);
 		return "/member/memberList";
 	}

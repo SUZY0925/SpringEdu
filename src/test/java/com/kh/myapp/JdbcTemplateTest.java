@@ -1,7 +1,7 @@
 package com.kh.myapp;
 
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -11,12 +11,12 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.myapp.member.dao.MemberDAO;
-import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
 //테스트환경
@@ -33,6 +33,7 @@ public class JdbcTemplateTest {
 	DataSource dataSource;
 	
 	@Autowired
+	@Qualifier("memberDAOImplJDBC")
 	private MemberDAO memberDAO;
 
 	
@@ -71,7 +72,7 @@ public class JdbcTemplateTest {
 	// 회원목록 가져오기
 	@Test @Ignore
 	public void getMemberList() {
-		ArrayList<MemberVO> list;
+		List<MemberVO> list;
 		list = memberDAO.getMemberList();
 		
 			for(MemberVO memberVO : list) {

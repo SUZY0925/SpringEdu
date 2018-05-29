@@ -1,17 +1,14 @@
 package com.kh.myapp.member.dao;
-
-import java.util.ArrayList;
-
+import java.util.List;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.kh.myapp.member.vo.MemberVO;
 
-@Repository("memberDAO")	// Repository : 자동으로 컨테이너에 올라감.
+// jdbc템플릿으로 구현한거
+@Repository // Repository : 자동으로 컨테이너에 올라감.
 public class MemberDAOImplJDBC implements MemberDAO{
 	
 	private JdbcTemplate jdbcTemplate; // 스프링에서 제공되는 jdbc
@@ -52,14 +49,12 @@ public class MemberDAOImplJDBC implements MemberDAO{
 
 	// 회원목록 가져오기
 	@Override
-	public ArrayList<MemberVO> getMemberList() {
-		
-		ArrayList<MemberVO> list = new ArrayList<>();
+	public List<MemberVO> getMemberList() {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("select * from member");
 		
-		list = (ArrayList<MemberVO>) this.jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<MemberVO>(MemberVO.class));
+		List<MemberVO> list  = this.jdbcTemplate.query(sql.toString(), new BeanPropertyRowMapper<MemberVO>(MemberVO.class));
 		// query : 여러개의 레코드를 List로 가져오기..
 		
 		return list;
