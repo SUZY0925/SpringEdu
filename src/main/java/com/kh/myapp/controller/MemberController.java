@@ -14,22 +14,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.myapp.member.service.MemberService;
+import com.kh.myapp.member.dao.MemberDAO;
 import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes("memberVO")
+// @SessionAttributes("memberVO")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	@Autowired(required=true)
 	//@Qualifier("memberServiceImpl")
-	@Qualifier("memberServiceImplXML")
-	MemberService memberService;
+	@Qualifier("memberDAOImplXML")
+	MemberDAO memberDAO;
+	
 	
 	
 	// 회원가입
@@ -45,18 +45,18 @@ public class MemberController {
 			logger.info("회원가입 오.류.발.생.★");
 			return "/member/memberJoin";
 		}else {
-			memberService.memberInsert(memberVO);
+			memberDAO.memberInsert(memberVO);
+			return "redirect:/member/memberList";
 		}
-		return "redirect:/member/memberList";
 	}
 
-	// 회원정보수정
+/*	// 회원정보수정
 	@RequestMapping(value="/memberModify/{id:.+}")	// get방식 대신 스프링에서 지원하는 방식 사용 : url상의 주소 일부를 파라미터로 받을 수 있다. 콜론뒤에 정규표현식을 정할수있음. .+는 dot가 0개이상..?
 	public String memberModify(@PathVariable String id, Model model) {
-		model.addAttribute("memberVO",memberService.getByMemberId(id));
+		model.addAttribute("memberVO",memberDAO.getByMemberId(id));
 		return "/member/memberModify";
 	}
-	
+	*/
 	//회원정보수정OK
 	@RequestMapping(value="/memberModifyOK", method = RequestMethod.POST)
 	public String memberModifyOK(@Valid MemberVO memberVO, BindingResult result) {
@@ -64,11 +64,11 @@ public class MemberController {
 			logger.info("정보수정 오.류.발.생.★");
 			return "/member/memberModify";
 		}else {
-			memberService.memberUpdate(memberVO);
+			memberDAO.memberUpdate(memberVO);
 		}
 		return "redirect:/member/memberList";
 	}
-	
+	/*
 	// 회원탈퇴
 	@RequestMapping(value="/memberDelete/{id:.+}")
 	public String memberDelete(@PathVariable String id, Model model) {
@@ -80,11 +80,11 @@ public class MemberController {
 		return "redirect:/member/memberList";
 	}
 	
-
+*/
 	//회원목록
 	@RequestMapping(value = "/memberList")
 	public String memberList(Model model) {
-		List<MemberVO> alist = memberService.getMemberList();
+		List<MemberVO> alist = memberDAO.getMemberList();
 		model.addAttribute("memberVOS",alist);
 		return "/member/memberList";
 	}

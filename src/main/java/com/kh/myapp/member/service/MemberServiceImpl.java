@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void memberInsert(MemberVO memberVO) {
-		memberDAO.insert(memberVO);
+		memberDAO.memberInsert(memberVO);
 	}
 
 	@Override
@@ -30,12 +30,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void memberUpdate(MemberVO memberVO) {
-		memberDAO.update(memberVO);
+		memberDAO.memberUpdate(memberVO);
 	}
 
 	@Override
 	public void memberDelete(String id) {
-		memberDAO.delete(id);
+		memberDAO.memberDelete(id);
 	}
 
 }

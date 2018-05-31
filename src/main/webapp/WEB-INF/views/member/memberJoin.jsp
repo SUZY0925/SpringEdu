@@ -84,8 +84,7 @@ $(function(){
 			
 
 			<label class="col-lg-2">비밀번호</label>
-			<form:password  path="passwd"
-				class="form-control-sm" />
+			<form:password  path="passwd" class="form-control-sm" />
 			<form:errors path="passwd" cssClass="errmsg" />
 			<br>
 			

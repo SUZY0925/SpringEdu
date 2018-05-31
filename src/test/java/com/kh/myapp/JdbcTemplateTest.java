@@ -25,7 +25,7 @@ import com.kh.myapp.member.vo.MemberVO;
 //-----------
 public class JdbcTemplateTest {
 
-	private static Logger Logger = LoggerFactory.getLogger(DBconnectionTest.class);
+	private static Logger Logger = LoggerFactory.getLogger(JdbcTemplateTest.class);
 
 	// 이미 DataSource, memberDAO를 컨테이너에 올려놨기 때문에 그냥 ..쓰면되는거임 인스턴스화 할필요 ㄴㄴ
 	
@@ -40,13 +40,13 @@ public class JdbcTemplateTest {
 	@Test @Ignore
 	public void test() {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("admin@kh.com");
+		memberVO.setId("suzy@kh.com");
 		memberVO.setPasswd("1234");
 		memberVO.setName("관리자");
 		memberVO.setBirth("19920925");
 		memberVO.setPhone("01012345678");
 		memberVO.setGender("W");
-		memberDAO.insert(memberVO);
+		memberDAO.memberInsert(memberVO);
 	}
 	
 	
@@ -91,7 +91,7 @@ public class JdbcTemplateTest {
 		memberVO.setPhone("01012345678");
 		memberVO.setBirth("19920925");
 		memberVO.setGender("W");
-		memberDAO.update(memberVO);
+		memberDAO.memberUpdate(memberVO);
 		
 		memberVO = memberDAO.getMember("admin@kh.com");
 		Logger.info(memberVO.toString());
@@ -101,7 +101,7 @@ public class JdbcTemplateTest {
 	// 회원삭제
 	@Test @Ignore
 	public void delete() {
-		memberDAO.delete("admin2@kh.com");
+		memberDAO.memberDelete("admin2@kh.com");
 	}
 	
 

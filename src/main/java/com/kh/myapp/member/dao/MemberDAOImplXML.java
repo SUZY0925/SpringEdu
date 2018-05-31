@@ -14,7 +14,7 @@ public class MemberDAOImplXML implements MemberDAO { // mybatis를 사용해서 
 	private SqlSession sqlSession; // 이미 컨테이너에 올라와있는거 주입받는거임..(?)
 
 	@Override
-	public void insert(MemberVO memberVO) {
+	public void memberInsert(MemberVO memberVO) {
 		sqlSession.insert("memberInsert",memberVO);
 	}
 
@@ -29,13 +29,13 @@ public class MemberDAOImplXML implements MemberDAO { // mybatis를 사용해서 
 	}
 
 	@Override
-	public void update(MemberVO memberVO) {
+	public void memberUpdate(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(String id) {
+	public void memberDelete(String id) {
 		// TODO Auto-generated method stub
 		
 	}

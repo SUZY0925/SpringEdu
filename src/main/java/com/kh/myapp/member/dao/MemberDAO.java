@@ -6,7 +6,7 @@ import com.kh.myapp.member.vo.MemberVO;
 
 public interface MemberDAO {
 	// 회원등록
-	public void insert(MemberVO memberVO);
+	public void memberInsert(MemberVO memberVO);
 	
 	// 회원정보 가져오기
 	public MemberVO getMember(String id);
@@ -15,9 +15,9 @@ public interface MemberDAO {
 	public List<MemberVO> getMemberList();
 	
 	// 회원정보 수정
-	public void update(MemberVO memberVO);
+	public void memberUpdate(MemberVO memberVO);
 	
 	// 회원정보 삭제
-	public void delete(String id);
+	public void memberDelete(String id);
 
 }

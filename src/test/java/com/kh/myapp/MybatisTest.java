@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kh.myapp.member.dao.MemberDAOImplXML;
+import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
 //@RunWith(SpringJUnit4ClassRunner.class) junit4버전 사용
@@ -22,12 +21,12 @@ class MybatisTest {
 	private static final Logger logger = LoggerFactory.getLogger(MybatisTest.class);
 	
 	@Autowired
-	@Qualifier("memberDAOImplXML")
-	MemberDAOImplXML xml;
+	@Qualifier("memberServiceImplXML")
+	MemberService memberService;
 	
 	@Test
 	public void test() {
-		MemberVO memberVO = xml.getMember("admin@kh.com");
+		MemberVO memberVO = memberService.getByMemberId("admin@kh.com");
 		logger.info(memberVO.toString());
 	}
 	

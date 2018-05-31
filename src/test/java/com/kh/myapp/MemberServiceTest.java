@@ -18,7 +18,7 @@ import com.kh.myapp.member.vo.MemberVO;
 // -----------
 public class memberServiceTest {
 
-	private static Logger Logger = LoggerFactory.getLogger(DBconnectionTest.class);
+	private static Logger Logger = LoggerFactory.getLogger(memberServiceTest.class);
 	
 	@Autowired
 	@Qualifier("memberServiceImpl")

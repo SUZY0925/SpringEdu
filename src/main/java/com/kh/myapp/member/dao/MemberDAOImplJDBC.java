@@ -10,7 +10,7 @@ import com.kh.myapp.member.vo.MemberVO;
 // jdbc템플릿으로 구현한거
 @Repository // Repository : 자동으로 컨테이너에 올라감.
 public class MemberDAOImplJDBC implements MemberDAO{
-	
+
 	private JdbcTemplate jdbcTemplate; // 스프링에서 제공되는 jdbc
 	
 	@Autowired
@@ -20,7 +20,7 @@ public class MemberDAOImplJDBC implements MemberDAO{
 	
 	// 회원등록
 	@Override
-	public void insert(MemberVO memberVO) {
+	public void memberInsert(MemberVO memberVO) {
 
 		StringBuffer sql = new StringBuffer();
 		
@@ -62,7 +62,7 @@ public class MemberDAOImplJDBC implements MemberDAO{
 
 	// 회원정보 수정
 	@Override
-	public void update(MemberVO memberVO) {
+	public void memberUpdate(MemberVO memberVO) {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("update member set ");
@@ -75,7 +75,7 @@ public class MemberDAOImplJDBC implements MemberDAO{
 
 	// 회원정보 삭제
 	@Override
-	public void delete(String id) {
+	public void memberDelete(String id) {
 		this.jdbcTemplate.update("delete from member where id = ?", id);
 	}
 
