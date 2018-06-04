@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.stereotype.Repository;
+
 /*"ID" VARCHAR2(30 BYTE) NOT NULL ENABLE, 
 "PASSWD" VARCHAR2(30 BYTE) NOT NULL ENABLE, 
 "NAME" VARCHAR2(10 BYTE) NOT NULL ENABLE, 
@@ -16,6 +18,9 @@ import javax.validation.constraints.Size;
 "UDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
  CHECK (GENDER IN ('M', 'W')) ENABLE, */
 public class MemberVO {
+	
+	
+	
 	
 	@Pattern(regexp="^[\\w=\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="이메일 형식이 아닙니다.")
 	private String id;

@@ -8,4 +8,7 @@ public interface LoginDAO {
 	// 아이디와 비밀번호로 회원정보 가져오기
 	public MemberVO getMember(LoginVO loginVO);
 	
+	public MemberVO findID(MemberVO memberVO);
+	
+	public MemberVO findPW(MemberVO memberVO);
 }

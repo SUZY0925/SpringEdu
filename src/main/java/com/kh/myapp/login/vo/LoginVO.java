@@ -21,6 +21,10 @@ public class LoginVO {
 		
 	}
 	
+	public LoginVO(LoginVO loginVO) {
+			this.id= loginVO.getId();
+			this.passwd = loginVO.getPasswd();
+	}
 	
 	public String getId() {
 		return id;

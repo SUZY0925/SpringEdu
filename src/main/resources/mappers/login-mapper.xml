@@ -7,4 +7,11 @@
 		select * from member where id = #{id} and passwd = #{passwd}
 	</select>
 	
+	<select id="findID" resultType="MemberVO" parameterType="MemberVO">
+		select id from member where name = #{name} and phone = #{phone}
+	</select>
+	
+	<select id="findPW" resultType="MemberVO" parameterType="MemberVO">
+		select passwd from member where id=#{id} and birth = #{birth}
+	</select>
 </mapper>

@@ -23,7 +23,7 @@ class loginTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(loginTest.class);
 	
-	@Test
+/*	@Test
 	void test() {
 		LoginVO loginVO = new LoginVO();
 		loginVO.setId("suzy@kh.com");
@@ -32,7 +32,7 @@ class loginTest {
 		MemberVO memVO = loginService.getMember(loginVO);
 		
 		logger.info(memVO.toString());
-	}
+	}*/
 	
 	/*// 빈 등록정보 확인하기
 	@Autowired
@@ -43,5 +43,21 @@ class loginTest {
 			logger.info(name + "\t :: " + df.getBean(name).getClass().getName());
 		}
 	}*/
+	
+	@Test
+	void findid() {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setName("관리자");
+		memberVO.setPhone("01012345678");
+		logger.info(loginService.findID(memberVO).getId());
+	}
+	
+	@Test
+	void findpw() {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("suzy@kh.com");
+		memberVO.setBirth("19920925");
+		logger.info(loginService.findPW(memberVO).getPasswd());
+	}
 
 }

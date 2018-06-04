@@ -1,6 +1,7 @@
 package com.kh.myapp;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -26,19 +27,19 @@ public class DBconnectionTest {
 	
 	@Autowired // 등록된 bean을 가져다 쓸때 사용하는 어노테이션
 	private DataSource ds;
+	
+	
 	@Test
 	// DataSource 접속여부 확인 테스트
 	public void testConnection() {
-		try (Connection conn = ds.getConnection()) {
-			Logger.info("DataSource 연결성공");
-			Logger.trace("trace!");
-			Logger.debug("debug!");
-			Logger.warn("warn!");
-			Logger.error("error!");
-		} catch (Exception e) {
-			Logger.info("DataSource 연결오류");
+		try {
+			Connection conn = ds.getConnection();
+			Logger.info("성공");
+		} catch (SQLException e) {
+			Logger.info("실패");
 			e.printStackTrace();
 		}
+		
 	}
 	
 	@Autowired
@@ -50,6 +51,8 @@ public class DBconnectionTest {
 	}
 	
 	
+	
+	
 	@Test
 	public void testSqlSessionTemplate() {
 		try(SqlSession session = sqlFactory.openSession()) {
@@ -59,6 +62,9 @@ public class DBconnectionTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 	
 	
 }
