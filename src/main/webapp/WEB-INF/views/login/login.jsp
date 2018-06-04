@@ -18,10 +18,10 @@
 	
 		$("#findid").on("click",function(e) {
 			/* location.href = "/login/findID"; */
-			$("#findform").attr("action","/login/findID").submit();
+			$("#findform").attr("action","/member/findID").submit();
 		});
 		$("#findpw").on("click",function(e) {
-			$("#findform").attr("action","/login/findPW").submit();
+			$("#findform").attr("action","/member/findPW").submit();
 		});
 	});
 </script>
@@ -42,7 +42,6 @@
 
 <div class="container">
 	<div class="container">
-	
 	<form:form modelAttribute="login" action="/login/memLoginOK" method="post">
 	<section class="form-simple">
 	    <div class="card">
@@ -74,10 +73,8 @@
 </form:form>        
 </div>
 </div>
-
-
-<!-- Modal -->
-<form:form modelAttribute="find" id="findform" >
+<%-- 
+<form:form modelAttribute="find" method="post">
 <div class="modal fade" id="exampleModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -130,8 +127,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
 </form:form>
+ --%>
+
 </body>
 </html>
 

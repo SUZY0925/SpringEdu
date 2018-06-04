@@ -107,4 +107,3 @@ $(function(){
 </body>
 </html>
 
-<jsp:include page="/WEB-INF/views/footer.jsp" flush="true"/>

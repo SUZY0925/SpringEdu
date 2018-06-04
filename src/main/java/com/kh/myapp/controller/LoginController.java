@@ -25,7 +25,7 @@ import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/login")	// 중복되는 경로중에 제일 상위경로에 해당되는 곳을 공통적으로 사용한다;;?
-@SessionAttributes({"login","find"})	// session에 대한 속성 이름을 login로 가져가겠다는 말
+@SessionAttributes("login")	// session에 대한 속성 이름을 login로 가져가겠다는 말
 
 public class LoginController {
 	
@@ -87,32 +87,5 @@ public class LoginController {
 	
 	
 	
-	@RequestMapping("/findID")
-	public void findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
-		/*if(result.hasErrors()) {
-			return "login/login";	
-		}else {
-			MemberVO memberVO = loginService.findID(find);
-			if(memberVO != null) {
-				model.addAttribute("login", memberVO);
-				return "login/login";
-			} else {
-				return "login/login";
-			}
-		}*/
-	}
 	
-	public void findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
-		/*if(result.hasErrors()) {
-			return "login/login";	
-		}else {
-			MemberVO memberVO = loginService.findPW(find);
-			if(memberVO != null) {
-				model.addAttribute("login", memberVO);
-				return "redirect:/login/login";
-			} else {
-				return "login/login";
-			}
-		}*/
-	}
 }

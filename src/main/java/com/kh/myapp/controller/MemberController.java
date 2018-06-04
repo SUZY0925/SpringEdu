@@ -22,7 +22,7 @@ import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/member")
-/*@SessionAttributes("memberVO")*/
+@SessionAttributes("memberVO")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -69,8 +69,8 @@ public class MemberController {
 			return "/member/memberModify";
 		}else {
 			memberService.memberUpdate(memberVO);
+			return "redirect:/member/memberList";
 		}
-		return "redirect:/member/memberList";
 	}
 	
 	// 회원탈퇴
@@ -78,10 +78,10 @@ public class MemberController {
 	public String memberDelete(@PathVariable String id, Model model) {
 		if(memberService.getByMemberId(id) != null) {
 			memberService.memberDelete(id);
+			return "redirect:/member/memberList";
 		}else {
-			
+			return "/member/memberList";
 		}
-		return "redirect:/member/memberList";
 	}
 	
 
@@ -92,4 +92,34 @@ public class MemberController {
 		model.addAttribute("memberVOS",alist);
 		return "/member/memberList";
 	}
+	
+	/*@RequestMapping("/findID")
+	public void findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
+		if(result.hasErrors()) {
+			return "login/login";	
+		}else {
+			MemberVO memberVO = loginService.findID(find);
+			if(memberVO != null) {
+				model.addAttribute("login", memberVO);
+				return "login/login";
+			} else {
+				return "login/login";
+			}
+		}
+	}
+	
+	@RequestMapping("/findPW")
+	public void findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
+		if(result.hasErrors()) {
+			return "login/login";	
+		}else {
+			MemberVO memberVO = loginService.findPW(find);
+			if(memberVO != null) {
+				model.addAttribute("login", memberVO);
+				return "redirect:/login/login";
+			} else {
+				return "login/login";
+			}
+		}
+	}*/
 }
