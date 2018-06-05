@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
-
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
-<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
-
 <script>
 $(function(){
 	$("input[name=password]").on("keyup",function(){
@@ -36,10 +36,13 @@ $(function(){
 	#BtnDiv {
 		margin:auto;
 		margin-bottom: 10px;
-	}	
+	}
+	body {
+		margin-bottom: 5%;
+	}
 </style>
 </head>
-<body>
+<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 	<div class="container">
 	<form:form modelAttribute="memberVO" action="/member/memberModifyOK" method="post">
 	    <div class="card">
@@ -107,3 +110,4 @@ $(function(){
 </body>
 </html>
 
+<jsp:include page="/WEB-INF/views/footer.jsp" flush="true"/>

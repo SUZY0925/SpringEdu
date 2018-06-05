@@ -1,8 +1,5 @@
 package com.kh.myapp.controller;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -10,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +21,7 @@ import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/login")	// 중복되는 경로중에 제일 상위경로에 해당되는 곳을 공통적으로 사용한다;;?
-@SessionAttributes("login")	// session에 대한 속성 이름을 login로 가져가겠다는 말
-
+@SessionAttributes({"login","find"})	// session에 대한 속성 이름을 login로 가져가겠다는 말
 public class LoginController {
 	
 		// forward : 서버내에서 페이지 이동... request와 response 정보를 같이 가져가는거임. (건내주기)
@@ -34,22 +29,19 @@ public class LoginController {
 		// redirect에서 파라미터를 가지고 갈 수 있는 방법은 get방법뿐이다.
 	
 	@Autowired
-	//@Qualifier("loginServiceImpl")
 	@Qualifier("loginServiceImplXML")
 	LoginService loginService;
-	
-
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	// 로그인화면 보여주기
 	@RequestMapping("/logIN")
-	public String logIn(Model model, HttpSession session) {	// model이라는 객체에 LoginVO를 심어서 login.jsp에 보내서 form과 이름이 같은 객체(ui단의 form의 name = loginVO 객체이름)와 바인딩이 됨. 이름이 틀리면 오류남 
+	public String logIn(Model model, HttpSession session, SessionStatus sessionStatus
+			) {	// model이라는 객체에 LoginVO를 심어서 login.jsp에 보내서 form과 이름이 같은 객체(ui단의 form의 name = loginVO 객체이름)와 바인딩이 됨. 이름이 틀리면 오류남 
 	
 		if(session.getAttribute("login") != null) {
 			return "redirect:/"; 
 		}
-		
 		model.addAttribute("login", new LoginVO());
 		model.addAttribute("find", new MemberVO());
 		return "login/login";	// views폴더의 login폴더의 login.jsp
@@ -84,8 +76,5 @@ public class LoginController {
 		sessionStatus.setComplete();	// 세션 마무으리,,
 		return "redirect:/";
 	}
-	
-	
-	
-	
+
 }

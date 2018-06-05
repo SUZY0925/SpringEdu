@@ -21,21 +21,7 @@ public class LoginDAOImplXML implements LoginDAO{
 		return sqlSession.selectOne("getMemberLogin",loginVO);
 	}
 
-	@Override
-	public MemberVO findID(MemberVO memberVO) {
-		Map<String,Object> parameters = new HashMap<String,Object>();
-		parameters.put("name", memberVO.getName());
-		parameters.put("phone", memberVO.getPhone());
-		return sqlSession.selectOne("findID",parameters);
-	}
-
-	@Override
-	public MemberVO findPW(MemberVO memberVO) {
-		Map<String,Object> parameters = new HashMap<String,Object>();
-		parameters.put("id", memberVO.getId());
-		parameters.put("birth", memberVO.getBirth());
-		return sqlSession.selectOne("findPW",parameters);
-	}
+	
 	
 	
 }

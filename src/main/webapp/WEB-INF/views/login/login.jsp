@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+
 <!-- string form 태그.. -->
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
-<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
-
 <script>
 	$(function() {
 		$("#joinBtn").on("click", function(e) {
@@ -13,16 +16,32 @@
 
 		$("#loginBtn").on("click", function(e) {
 			e.preventDefault();
-			$("form").submit();
+			$("#loginform").submit();
 		});
-	
-		$("#findid").on("click",function(e) {
-			/* location.href = "/login/findID"; */
-			$("#findform").attr("action","/member/findID").submit();
+		
+		$("#findid").on("click",function() {
+		/* 	var name = $("input[name=name]").val();
+			var phone = $("input[name=phone]").val();
+			$.ajax({
+				type : "GET",
+				url : "/member/findID",
+				dataType : "text",
+				data : {
+					name, phone
+				},
+				success : function(data) {
+					console.log("${find.id}");
+				},
+				error : function(e) {
+					alert("실패" + e);
+				}
+			}); */ 
+			$("#findform").attr("action","/member/findID").submit(); 
 		});
-		$("#findpw").on("click",function(e) {
+		$("#findpw").on("click",function() {
 			$("#findform").attr("action","/member/findPW").submit();
 		});
+
 	});
 </script>
 <style>
@@ -38,11 +57,9 @@
                 
 </style>
 </head>
-<body>
-
-<div class="container">
+<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 	<div class="container">
-	<form:form modelAttribute="login" action="/login/memLoginOK" method="post">
+	<form:form modelAttribute="login" action="/login/memLoginOK" method="post" id="loginform">
 	<section class="form-simple">
 	    <div class="card">
 	        <div class="header pt-3 grey lighten-2">
@@ -52,12 +69,12 @@
 	        </div>
 	        <div class="card-body mx-4 mt-4">
 	            <div class="md-form">
-	                <form:input path="id" id="Form-email4" class="form-control" />
+	                <form:input path="id" class="form-control" />
 	                <label for="Form-email4">Your email</label>
 	                <form:errors path="id" cssClass="errmsg" />
 	            </div>
 	            <div class="md-form pb-3">
-		            <form:password path="passwd" id="Form-pass4"  class="form-control" />
+		            <form:password path="passwd"  class="form-control" />
 			        <label for="Form-pass4">Your password</label>
 					<form:errors path="passwd" cssClass="errmsg" />
 				</div>
@@ -72,9 +89,8 @@
 	</section>
 </form:form>        
 </div>
-</div>
-<%-- 
-<form:form modelAttribute="find" method="post">
+
+<form:form modelAttribute="find" method="post" id="findform">
 <div class="modal fade" id="exampleModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -86,11 +102,11 @@
       </div>
       <div class="modal-body">
         <div class="md-form">
-	                <form:input id="Form-email4" path="name"  class="form-control" />
+	                <form:input path="name"  class="form-control" />
 	                <label for="Form-email4">Name</label>
 	            </div>
 	    <div class="md-form">
-		            <form:input id="Form-pass4" path="phone"    class="form-control" />
+		            <form:input path="phone"    class="form-control" />
 			        <label for="Form-pass4">PhoneNumber</label>
 				</div>
       </div>
@@ -113,11 +129,11 @@
       </div>
        <div class="modal-body">
         <div class="md-form">
-	                <input type="email" name="idf" id="Form-email4" class="form-control" />
+	                <input type="email" name="id" class="form-control" />
 	                <label for="Form-email4">Id</label>
 	            </div>
 	    	<div class="md-form">
-		            <input type="text" name="birth" id="Form-pass4"  class="form-control" />
+		            <input type="text" name="birth"  class="form-control" />
 			        <label for="Form-pass4">Birth</label>
 				</div>
     	  </div>
@@ -129,7 +145,7 @@
   </div>
 </div> 
 </form:form>
- --%>
+
 
 </body>
 </html>

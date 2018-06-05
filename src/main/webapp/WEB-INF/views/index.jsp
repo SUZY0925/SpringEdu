@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <title>Spring FrameWork</title>
+
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
 <jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 <jsp:include page="/WEB-INF/views/body.jsp" flush="true"/>

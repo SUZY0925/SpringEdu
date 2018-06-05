@@ -38,4 +38,14 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.memberDelete(id);
 	}
 
+	@Override
+	public MemberVO findID(MemberVO memberVO) {
+		return null;
+	}
+
+	@Override
+	public MemberVO findPW(MemberVO memberVO) {
+		return null;
+	}
+
 }

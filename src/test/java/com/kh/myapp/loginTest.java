@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.kh.myapp.login.service.LoginService;
-import com.kh.myapp.login.vo.LoginVO;
+import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
 @ExtendWith(SpringExtension.class)
@@ -18,8 +17,8 @@ import com.kh.myapp.member.vo.MemberVO;
 class loginTest {
 	
 	@Autowired
-	@Qualifier("loginServiceImplXML")
-	LoginService loginService;
+	@Qualifier("memberServiceImplXML")
+	MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(loginTest.class);
 	
@@ -47,9 +46,9 @@ class loginTest {
 	@Test
 	void findid() {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setName("관리자");
+		memberVO.setName("admin");
 		memberVO.setPhone("01012345678");
-		logger.info(loginService.findID(memberVO).getId());
+		logger.info(memberService.findID(memberVO).getId());
 	}
 	
 	@Test
@@ -57,7 +56,7 @@ class loginTest {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("suzy@kh.com");
 		memberVO.setBirth("19920925");
-		logger.info(loginService.findPW(memberVO).getPasswd());
+		logger.info(memberService.findPW(memberVO).getPasswd());
 	}
 
 }

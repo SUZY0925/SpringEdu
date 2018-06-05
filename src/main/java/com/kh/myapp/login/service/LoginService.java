@@ -7,7 +7,4 @@ public interface LoginService {
 	
 	public MemberVO getMember(LoginVO loginVO) ;
 	
-	public MemberVO findID(MemberVO memberVO);
-	
-	public MemberVO findPW(MemberVO memberVO);
 }
