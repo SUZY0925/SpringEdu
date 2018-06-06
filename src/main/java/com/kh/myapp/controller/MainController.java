@@ -11,5 +11,10 @@ public class MainController {
 		return "index";
 	}
 	
+	@RequestMapping("/csstest")
+	public String csstest() {
+		return "csstest";
+	}
+	
 	
 }
