@@ -88,11 +88,11 @@ $(function(){
 				</div>
 				
 				<div class="custom-control custom-radio custom-control-inline" style="margin-top:10px">
-				  <input type="radio"  id="customRadioInline1" name="gender" class="custom-control-input" value="M" />
+				  <input type="radio" id="customRadioInline1"  class="custom-control-input" value="M" />
 				  <label class="custom-control-label" for="customRadioInline1">Men</label>
 				</div>
 				<div class="custom-control custom-radio custom-control-inline">
-				  <input type="radio"  id="customRadioInline2" name="gender" class="custom-control-input" value="W"/>
+				  <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="W"/>
 				  <label class="custom-control-label" for="customRadioInline2">Women</label>
 				</div>
 
