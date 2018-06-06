@@ -38,4 +38,14 @@ public class MemberServiceImplXML implements MemberService {
 		memberDAO.memberDelete(id);
 	}
 
+	@Override
+	public MemberVO findID(MemberVO memberVO) {
+		return memberDAO.findID(memberVO);
+	}
+
+	@Override
+	public MemberVO findPW(MemberVO memberVO) {
+		return memberDAO.findPW(memberVO);
+	}
+
 }

@@ -20,15 +20,5 @@ public class LoginServiceImplXML implements LoginService{
 		return loginDAO.getMember(loginVO);
 	}
 
-	@Override
-	public MemberVO findID(MemberVO memberVO) {
-		
-		return loginDAO.findID(memberVO);
-	}
-
-	@Override
-	public MemberVO findPW(MemberVO memberVO) {
-		return loginDAO.findPW(memberVO);
-	}
 
 }

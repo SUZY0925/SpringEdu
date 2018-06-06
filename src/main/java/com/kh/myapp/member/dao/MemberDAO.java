@@ -19,5 +19,8 @@ public interface MemberDAO {
 	
 	// 회원정보 삭제
 	public void memberDelete(String id);
+	
+	public MemberVO findID(MemberVO memberVO);
+	public MemberVO findPW(MemberVO memberVO);
 
 }

@@ -1,9 +1,12 @@
 package com.kh.myapp.member.dao;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.kh.myapp.member.service.MemberService;
+
 import com.kh.myapp.member.vo.MemberVO;
 
 // mybatis를 이용해서 구현한거
@@ -30,14 +33,26 @@ public class MemberDAOImplXML implements MemberDAO { // mybatis를 사용해서 
 
 	@Override
 	public void memberUpdate(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+		sqlSession.update("memberUpdate",memberVO);
 		
 	}
 
 	@Override
 	public void memberDelete(String id) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.delete("memberDelete",id);
+	}
+	
+	@Override
+	public MemberVO findID(MemberVO memberVO) {
+		return sqlSession.selectOne("findID",memberVO);
+//		return sqlSession.getMapper(MemberDAO.class).findId(name, phone); // String 인자로 들어올 경우 사용
+//		MemberService에서 파라미터가 @param 붙여져서 들어옴
+//		mapper.xml에서 parameterType 없어도됨? 없어야함?		
+	}
+
+	@Override
+	public MemberVO findPW(MemberVO memberVO) {
+		return sqlSession.selectOne("findPW",memberVO);
 	}
 
 }

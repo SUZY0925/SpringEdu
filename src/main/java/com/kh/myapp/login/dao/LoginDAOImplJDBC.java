@@ -36,17 +36,6 @@ public class LoginDAOImplJDBC implements LoginDAO {
 		return memVO;
 	}
 
-	@Override
-	public MemberVO findID(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MemberVO findPW(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

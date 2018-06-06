@@ -79,4 +79,16 @@ public class MemberDAOImplJDBC implements MemberDAO{
 		this.jdbcTemplate.update("delete from member where id = ?", id);
 	}
 
+	@Override
+	public MemberVO findID(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO findPW(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

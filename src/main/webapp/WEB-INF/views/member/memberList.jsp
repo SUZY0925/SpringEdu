@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
-<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
-
 <script>
 	$(function() {
 		$("#modi, #del, #list").on("click",function() {
@@ -13,7 +13,7 @@
 	});
 </script>
 </head>
-<body>
+<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 <div class="container">
 <div class="card">
 			<div class="header pt-3 grey lighten-2">
@@ -30,7 +30,8 @@
 						<th>생년월일</th>
 						<th>전화번호</th>
 						<th>성별</th>
-						<th>수정/삭제</th>
+						<th>수정</th>
+						<th>삭제</th>
 					</tr>
 					<c:forEach items="${memberVOS}" var="memberVO">
 					<tr>
@@ -47,6 +48,8 @@
 						<div class="col" style="margin-bottom:3px;">
 							<button type="button" id="modi" class="btn btn-outline-danger btn-block z-depth-2 btn-sm" data-url="/member/memberModify/${memberVO.id}">Modify</button>
 						</div>
+						</td>
+						<td>
 						<div class="col">
 							<button type="button" id="del" class="btn btn-dark btn-block z-depth-2 btn-sm" data-url="/member/memberDelete/${memberVO.id}">Delete</button>
 						</div>
@@ -54,15 +57,15 @@
 					</tr>
 					</c:forEach>
 					<tr>
-					<td colspan="7" align="center">
+					<td colspan="8" align="center">
 						<div class="col" style="width:50%">
 							<button type="button" id="list" class="btn btn-danger btn-block z-depth-2 btn-sm" data-url="/member/memberJoin">Join Us</button>
 						</div>
 					</td>
 					</tr>	
 				</table>
+		</div>
 	</div>
-</div>
 </div>
 </body>
 </html>

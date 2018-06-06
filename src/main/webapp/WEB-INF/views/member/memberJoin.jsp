@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
-
+<%
+	request.setCharacterEncoding("utf-8");
+%>
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
-<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
-
 <script>
 $(function(){
 	
@@ -51,8 +51,7 @@ $(function(){
 	
 </style>
 </head>
-<body>
-<div class="container">
+<jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 	<div class="container">
 	<form:form modelAttribute="memberVO" action="/member/memberJoinOK" method="post">
 	    <div class="card">
@@ -120,7 +119,7 @@ $(function(){
 	        </div>
 	        </form:form> 
 	    </div>
-       </div>
 </body>
 </html>
 
+<jsp:include page="/WEB-INF/views/footer.jsp" flush="true"/>

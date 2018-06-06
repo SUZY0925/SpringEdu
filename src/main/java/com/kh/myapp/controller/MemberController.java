@@ -1,6 +1,8 @@
 package com.kh.myapp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -12,17 +14,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kh.myapp.login.vo.LoginVO;
 import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/member")
-@SessionAttributes("memberVO")
+@SessionAttributes("find")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -93,33 +97,37 @@ public class MemberController {
 		return "/member/memberList";
 	}
 	
-	/*@RequestMapping("/findID")
-	public void findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
+	@RequestMapping("/findID")
+	public String findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model, HttpSession session){
 		if(result.hasErrors()) {
-			return "login/login";	
+			return "redirect:/";	
 		}else {
-			MemberVO memberVO = loginService.findID(find);
-			if(memberVO != null) {
-				model.addAttribute("login", memberVO);
-				return "login/login";
-			} else {
-				return "login/login";
-			}
+			MemberVO memberVO = memberService.findID(find);
+				model.addAttribute("login", new LoginVO());
+				model.addAttribute("find", memberVO);
+				return "/login/modalID";
 		}
 	}
 	
+
+	
 	@RequestMapping("/findPW")
-	public void findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
+	public String findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
 		if(result.hasErrors()) {
-			return "login/login";	
+			return "redirect:/";	
 		}else {
-			MemberVO memberVO = loginService.findPW(find);
-			if(memberVO != null) {
-				model.addAttribute("login", memberVO);
-				return "redirect:/login/login";
-			} else {
-				return "login/login";
+			MemberVO memberVO = memberService.findPW(find);
+				model.addAttribute("login", new LoginVO());
+				model.addAttribute("find", memberVO);
+				return "/login/modalPW";
 			}
-		}
+	}
+	
+	/*
+	 * 
+	 * @RequestMapping("/findID")
+		public String T_findIdOK(@RequestParam("name") String name, @RequestParam("phone") String phone, Model model) {
+			model.addAllAttributes("id",memberService.findID(name, phone));
+		return "/member/findId";	
 	}*/
 }
