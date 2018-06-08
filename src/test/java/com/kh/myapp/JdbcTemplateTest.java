@@ -29,7 +29,7 @@ public class JdbcTemplateTest {
 
 	// 이미 DataSource, memberDAO를 컨테이너에 올려놨기 때문에 그냥 ..쓰면되는거임 인스턴스화 할필요 ㄴㄴ
 	
-	@Autowired
+/*	@Autowired
 	DataSource dataSource;
 	
 	@Autowired
@@ -49,7 +49,7 @@ public class JdbcTemplateTest {
 		memberDAO.memberInsert(memberVO);
 	}
 	
-	
+	*/
 	// 빈 등록정보 확인하기
 	@Autowired
 	DefaultListableBeanFactory df;
@@ -59,7 +59,7 @@ public class JdbcTemplateTest {
 			Logger.info(name + "\t " + df.getBean(name).getClass().getName());
 		}
 	}
-	
+	/*
 	
 	// 회원정보 가져오기
 	@Test
@@ -103,6 +103,6 @@ public class JdbcTemplateTest {
 	public void delete() {
 		memberDAO.memberDelete("admin2@kh.com");
 	}
-	
+	*/
 
 }

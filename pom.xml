@@ -238,6 +238,31 @@
 		</dependency>
 				
 		
+		<!-- json포맷 https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>	<!-- 조직 이름, 단체 이름, 도메인으로 표현 -->
+		    <artifactId>jackson-databind</artifactId><!-- 프로젝트 이름, 라이브러리 이름 -->
+		    <version>2.9.5</version>
+		</dependency>
+		
+		
+		<!-- xml포맷..이 기본이 됨? 사용가능? https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.9.5</version>
+		</dependency>
+		
+		<!-- 반복작업을 줄여줌, get set 을 어노테이션 하나로 만들어줌 https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.0</version>
+		    <scope>provided</scope>
+		</dependency>
+				
+				
+		
 		
 	</dependencies>
     <build>
@@ -276,6 +301,28 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            
+            <plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+            	<artifactId>maven-war-plugin</artifactId>
+            	<version>2.4</version>
+            	<configuration>
+            		<warSourceDirectory>src/main/webapp</warSourceDirectory>
+            		<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+            	</configuration>
+            </plugin>
+            <plugin>
+            	<groupId>org.codehaus.mojo</groupId>
+            	<artifactId>tomcat-maven-plugin</artifactId>
+            	<version>1.1</version>
+            	<configuration>
+					<url>http://127.0.0.1:9080/manager/text</url>
+					<path>/</path>
+            		<username>admin</username>
+            		<password>admin</password>
+            	</configuration>
+            </plugin>
+            
         </plugins>
     </build>
 </project>
