@@ -19,7 +19,7 @@ class BeanTest {
 
 	private Logger logger = LoggerFactory.getLogger(BeanTest.class);
 	
-	@Autowired
+/*	@Autowired
 	//@Qualifier("loginVO")
 	@Qualifier("conLoginVO")
 	LoginVO loginVO;
@@ -27,7 +27,7 @@ class BeanTest {
 	@Test
 	public void test() {
 			logger.info(loginVO.toString());
-	}
+	}*/
 	
 	// 빈 등록정보 확인하기
 	@Autowired

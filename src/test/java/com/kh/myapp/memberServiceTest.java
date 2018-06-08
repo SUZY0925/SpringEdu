@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,9 +19,17 @@ import com.kh.myapp.member.vo.MemberVO;
 // -----------
 public class memberServiceTest {
 
-	private static Logger Logger = LoggerFactory.getLogger(memberServiceTest.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(loginTest.class);
 	@Autowired
+	DefaultListableBeanFactory df;
+	@Test
+	public void beans() {
+		for(String name : df.getBeanDefinitionNames()) {
+			logger.info(name + "\t " + df.getBean(name).getClass().getName());
+		}
+	}
+	
+/*	@Autowired
 	@Qualifier("memberServiceImpl")
 	MemberService memberService;	// 컨테이너상에서는 memberSerivceImpl이 올라갔지만 상위타입으로 받을 수 있음ㅎㅎㅎㅎ 
 	
@@ -29,5 +38,5 @@ public class memberServiceTest {
 	public void test() {
 		MemberVO memberVO = memberService.getByMemberId("admin@kh.com");
 		Logger.info(memberVO.toString());
-	}
+	}*/
 }
