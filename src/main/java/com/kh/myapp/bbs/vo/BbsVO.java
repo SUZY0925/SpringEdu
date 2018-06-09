@@ -4,17 +4,10 @@ import java.sql.Date;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-<<<<<<< HEAD
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @NoArgsConstructor
-@Slf4j	// 로그 멤버변수 생성 log
-=======
-
-@Data
-@NoArgsConstructor
->>>>>>> f172546f5c154531b981d14dc782588a2339c9de
 public class BbsVO {
 	private int bNum;			// 게시글번호
 	private String bTitle;	// 제목
