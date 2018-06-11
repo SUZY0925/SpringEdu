@@ -7,6 +7,9 @@
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
 <script>
 	$(function() {
+		$("#afterID").hide();
+		$("#afterPW").hide();
+		
 		$("#joinBtn").on("click", function(e) {
 			location.href = "/member/memberJoin"
 		});
@@ -16,29 +19,58 @@
 			$("#loginform").submit();
 		});
 		
-		$("#findid").on("click",function() {
-		/* 	var name = $("input[name=name]").val();
+		$("#findid").on("click",function(e) {
+		 	var name = $("input[name=name]").val();
 			var phone = $("input[name=phone]").val();
 			$.ajax({
 				type : "GET",
-				url : "/member/findID",
+				url : "/findID",
 				dataType : "text",
 				data : {
 					name, phone
 				},
 				success : function(data) {
-					console.log("${find.id}");
+					$("#beforeID").hide();
+					$("#afterID").show();
+					$("#findIDstring").html(data);
 				},
 				error : function(e) {
-					alert("실패" + e);
+					alert("조회된 아이디가 없습니다.");
 				}
-			}); */ 
-			$("#findform").attr("action","/member/findID").submit(); 
+			}); 
 		});
+		
 		$("#findpw").on("click",function() {
-			$("#findform").attr("action","/member/findPW").submit();
+			var id = $("input[name=ids]").val();
+			var birth = $("input[name=birth]").val();
+			$.ajax({
+				type : "GET",
+				url : "/findPW",
+				dataType : "text",
+				data : {
+					id, birth
+				},
+				success : function(data) {
+					$("#beforePW").hide();
+					$("#afterPW").show();
+					$("#findPWstring").html(data);
+				},
+				error : function(e) {
+					alert("조회된 비밀번호가 없습니다.");
+				}
+			}); 
 		});
-
+		
+	});
+	
+	$(document).on('hidden.bs.modal','.modal',function(e) {
+		$("#findform").each(function(){
+		    this.reset();
+		  });
+		$("#afterID").hide();
+		$("#afterPW").hide();
+		$("#beforeID").show();
+		$("#beforePW").show();
 	});
 </script>
 <style>
@@ -54,7 +86,9 @@
                 
 </style>
 </head>
+
 <jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
+
 	<div class="container">
 	<form:form modelAttribute="login" action="/login/memLoginOK" method="post" id="loginform">
 	<section class="form-simple">
@@ -88,59 +122,8 @@
 </div>
 
 <form:form modelAttribute="find" method="post" id="findform">
-<div class="modal fade" id="exampleModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Find ID</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="md-form">
-	                <form:input path="name"  class="form-control" />
-	                <label for="Form-email4">Name</label>
-	            </div>
-	    <div class="md-form">
-		            <form:input path="phone"    class="form-control" />
-			        <label for="Form-pass4">PhoneNumber</label>
-				</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="findid">FIND</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="exampleModalPw" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Find PW</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-       <div class="modal-body">
-        <div class="md-form">
-	                <input type="email" name="id" class="form-control" />
-	                <label for="Form-email4">Id</label>
-	            </div>
-	    	<div class="md-form">
-		            <input type="text" name="birth"  class="form-control" />
-			        <label for="Form-pass4">Birth</label>
-				</div>
-    	  </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="findpw">FIND</button>
-      </div>
-    </div>
-  </div>
-</div> 
+<jsp:include page="/WEB-INF/views/login/modalID.jsp" flush="true"/>
+<jsp:include page="/WEB-INF/views/login/modalPW.jsp" flush="true"/>
 </form:form>
 
 
