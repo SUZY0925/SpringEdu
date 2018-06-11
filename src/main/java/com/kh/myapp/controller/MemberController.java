@@ -26,6 +26,7 @@ import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/member")
+@SessionAttributes("find")
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -96,7 +97,31 @@ public class MemberController {
 		return "/member/memberList";
 	}
 	
+	@RequestMapping("/findID")
+	public String findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model, HttpSession session){
+		if(result.hasErrors()) {
+			return "redirect:/";	
+		}else {
+			MemberVO memberVO = memberService.findID(find);
+				model.addAttribute("login", new LoginVO());
+				model.addAttribute("find", memberVO);
+				return "/login/modalID";
+		}
+	}
 	
+
+	
+	@RequestMapping("/findPW")
+	public String findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
+		if(result.hasErrors()) {
+			return "redirect:/";	
+		}else {
+			MemberVO memberVO = memberService.findPW(find);
+				model.addAttribute("login", new LoginVO());
+				model.addAttribute("find", memberVO);
+				return "/login/modalPW";
+			}
+	}
 	
 	/*
 	 * 
