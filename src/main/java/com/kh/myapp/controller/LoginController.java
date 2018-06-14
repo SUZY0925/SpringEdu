@@ -1,5 +1,7 @@
 package com.kh.myapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -7,16 +9,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.myapp.login.service.LoginService;
 import com.kh.myapp.login.vo.LoginVO;
+import com.kh.myapp.login.vo.securityLoginVO;
 import com.kh.myapp.member.vo.MemberVO;
 
 @Controller
@@ -34,8 +41,32 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	
+	@RequestMapping("/login")
+	public String securityLogin(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(!auth.getPrincipal().equals("anonymousUser")) {
+			logger.info("인증" + auth.getPrincipal());
+			return "redirect:/";
+		}
+		model.addAttribute("login",new securityLoginVO());
+		model.addAttribute("find",new MemberVO());
+		return "login/login";
+		
+	}
+	
+	@RequestMapping(value="logout", method=RequestMethod.GET )
+		public String logoutPage(SessionStatus sessionStatus,HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth != null) {
+			new SecurityContextLogoutHandler().logout(request,response,auth);
+		}
+		return "redirect:/login/login";
+	}
+	
 	// 로그인화면 보여주기
-	@RequestMapping("/logIN")
+	@RequestMapping("/loginIN")
 	public String logIn(Model model, HttpSession session, SessionStatus sessionStatus
 			) {	// model이라는 객체에 LoginVO를 심어서 login.jsp에 보내서 form과 이름이 같은 객체(ui단의 form의 name = loginVO 객체이름)와 바인딩이 됨. 이름이 틀리면 오류남 
 	

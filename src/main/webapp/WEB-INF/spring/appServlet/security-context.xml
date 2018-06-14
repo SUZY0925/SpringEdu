@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- auto-config = "true" : 로그인페이지/http 기본인증/ 로그아웃 기능등을 제공 -->
+	<security:http auto-config="true">
+	<!-- login-page :  로그인 페이지 지정 속성,  authentication-failure-url : 로그인 실패시 이동페이지 지정  -->
+		<security:form-login login-page="/login/login"
+		authentication-failure-url="/login/login?fail"
+		login-processing-url="/j_spring_security_check"/>
+		<!-- access="isAuthenticated()" : 인증된 사용자만 접근 -->
+		<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
+		<!-- access="permitAll" : 모든 접근 허용 -->
+		<security:intercept-url pattern="/**" access="permitAll"/>
+		<!-- access="hasAuthority('ROLE_ADMIN')" : admin만 접근 가능 -->
+		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/>
+		
+		<!-- 로그인 성공시 주소지정 -->
+		<security:form-login default-target-url="/" />
+		
+		<!-- 로그인 주소지정 및 로그아웃 성공시 주소지정 -->
+		<security:logout logout-url="/logout" logout-success-url="/" />
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="guest" password="{noop}guest" authorities="ROLE_USER"/>
+				<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans>

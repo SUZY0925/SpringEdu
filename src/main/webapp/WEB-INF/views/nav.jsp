@@ -33,16 +33,13 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <c:if test="${login == null}" >
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login/logIN">Log in</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/login/login">Log in</a>
             </li>
-            </c:if>
-            <c:if test="${login != null}">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login/logOut">Log out</a>
+                <%-- <a class="nav-link" href="${pageContext.request.contextPath}/login/logOut">Log out</a> --%>
+                <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">Log out</a>
             </li>
-            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">

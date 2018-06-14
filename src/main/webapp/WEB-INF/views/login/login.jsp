@@ -88,9 +88,12 @@
 </head>
 
 <jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
-
+	<c:if test="${param.fail != null}">
+		로그인실패
+	</c:if>
+	<c:url value="j_spring_security_check" var="loginUrl" />
 	<div class="container">
-	<form:form modelAttribute="login" action="/login/memLoginOK" method="post" id="loginform">
+	<form:form modelAttribute="login" action="${pageContext.request.contextPath}/${loginUrl}" method="post" id="loginform">
 	<section class="form-simple">
 	    <div class="card">
 	        <div class="header pt-3 grey lighten-2">
@@ -100,14 +103,14 @@
 	        </div>
 	        <div class="card-body mx-4 mt-4">
 	            <div class="md-form">
-	                <form:input path="id" class="form-control" />
+	                <form:input path="username" class="form-control" />
 	                <label for="Form-email4">Your email</label>
-	                <form:errors path="id" cssClass="errmsg" />
+	                <form:errors path="username" cssClass="errmsg" />
 	            </div>
 	            <div class="md-form pb-3">
-		            <form:password path="passwd"  class="form-control" />
+		            <form:password path="password"  class="form-control" />
 			        <label for="Form-pass4">Your password</label>
-					<form:errors path="passwd" cssClass="errmsg" />
+					<form:errors path="password" cssClass="errmsg" />
 				</div>
 					<p class="font-small grey-text d-flex justify-content-end">Forgot <a href="#" data-toggle="modal" data-target="#exampleModalId" class="dark-grey-text font-weight-bold ml-1"> E-mail?</a></p>
 	                <p class="font-small grey-text d-flex justify-content-end">Forgot <a href="#" data-toggle="modal" data-target="#exampleModalPw" class="dark-grey-text font-weight-bold ml-1"> Password?</a></p>
