@@ -35,6 +35,13 @@
   </filter-mapping>
   <!-- 스프링 시큐리티 끝 -->
   
+  <!-- 다중로그인 금지 -->
+  <listener>
+  	<listener-class>
+  		org.springframework.security.web.session.HttpSessionEventPublisher
+  	</listener-class>
+  </listener>
+  
   <!-- 한글 처리 -->
    <filter>
       <filter-name>encodingFilter</filter-name>

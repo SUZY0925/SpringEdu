@@ -91,7 +91,8 @@
 	<c:if test="${param.fail != null}">
 		로그인실패
 	</c:if>
-	<c:url value="j_spring_security_check" var="loginUrl" />
+	<%-- <c:url value="j_spring_security_check" var="loginUrl" /> --%>
+	<c:url value="login" var="loginUrl" />
 	<div class="container">
 	<form:form modelAttribute="login" action="${pageContext.request.contextPath}/${loginUrl}" method="post" id="loginform">
 	<section class="form-simple">

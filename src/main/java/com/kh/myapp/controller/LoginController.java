@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -50,13 +51,13 @@ public class LoginController {
 			logger.info("인증" + auth.getPrincipal());
 			return "redirect:/";
 		}
-		model.addAttribute("login",new securityLoginVO());
+		model.addAttribute("login",new securityLoginVO("admin@kh.com","1234",AuthorityUtils.NO_AUTHORITIES));
 		model.addAttribute("find",new MemberVO());
 		return "login/login";
 		
 	}
 	
-	@RequestMapping(value="logout", method=RequestMethod.GET )
+	@RequestMapping(value="/logout", method=RequestMethod.GET )
 		public String logoutPage(SessionStatus sessionStatus,HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth != null) {

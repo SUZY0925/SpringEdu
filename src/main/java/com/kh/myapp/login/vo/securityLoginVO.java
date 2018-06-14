@@ -1,15 +1,27 @@
 package com.kh.myapp.login.vo;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import java.util.Collection;
+
+import javax.persistence.Entity;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
 import lombok.Data;
 
+@Entity
 @Data
-public class securityLoginVO {
-	@Pattern(regexp="^[\\w=\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="이메일 형식이 아닙니다.")
-	private String username;
+public class securityLoginVO extends User{
 	
-	@Size(min=4,max=30,message="비밀번호는 4-30byte로 입력해주세요.")
-	private String password;
+	private String name;
+	private String birth;
+	private String phone;
+	private String gender;
+	
+	private static final long serialVersionUID = 1L;
+
+	public securityLoginVO(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities);
+	}
+	
 }
