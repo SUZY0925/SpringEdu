@@ -5,18 +5,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
+	<!-- spring security 적용에서 제외 -->
+	<http pattern="/bbs/**" security="none"/>
+	<http pattern="/resources/**" security="none"/>
+	
+	
 	<!-- auto-config = "true" : 로그인페이지/http 기본인증/ 로그아웃 기능등을 제공 -->
 	<http auto-config="true">
 	<!-- login-page :  로그인 페이지 지정 속성,  authentication-failure-url : 로그인 실패시 이동페이지 지정  -->
 		<form-login login-page="/login/login"
 		authentication-failure-url="/login/login?fail" />
 		<!-- login-processing-url="/j_spring_security_check"/> -->
+	
 		<!-- access="isAuthenticated()" : 인증된 사용자만 접근 -->
 		<intercept-url pattern="/member/**" access="isAuthenticated()"/>
-		<!-- access="permitAll" : 모든 접근 허용 -->
-		<intercept-url pattern="/**" access="permitAll"/>
+		
 		<!-- access="hasAuthority('ROLE_ADMIN')" : admin만 접근 가능 -->
 		<intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/>
+		
+		<!-- access="permitAll" : 모든 접근 허용 -->
+		<intercept-url pattern="/**" access="permitAll"/>
 		
 		<!-- 로그인 성공시 주소지정 -->
 		<form-login default-target-url="/" />
@@ -32,7 +40,7 @@
 	</http>
 
 	<beans:bean id="encoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" />
-	<beans:bean id="userService" class="com.kh.myapp.login.dao.LoginDAOImpl"></beans:bean>
+	<beans:bean id="userService" class="com.kh.myapp.login.dao.LoginDAOImplSecurity"></beans:bean>
 
 	<authentication-manager>
 	<!-- <authentication-provider> -->

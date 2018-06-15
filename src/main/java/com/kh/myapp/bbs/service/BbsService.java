@@ -1,4 +1,4 @@
-package com.kh.myapp.bbs.dao;
+package com.kh.myapp.bbs.service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.kh.myapp.bbs.dto.BbsDTO;
 import com.kh.myapp.util.FindCriteria;
 import com.kh.myapp.util.PageCriteria;
 
-public interface BbsDAO {
+public interface BbsService {
 
 	// 글쓰기
 	void write(BbsDTO bbsdto) throws Exception;
@@ -43,5 +43,4 @@ public interface BbsDAO {
 
 	// 검색한 글 전체 수 가져오기
 	int getSearchListCount(FindCriteria findCriteria) throws Exception;
-
 }

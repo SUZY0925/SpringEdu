@@ -52,46 +52,45 @@
 	</select>
 	
 	<select id="listFindCri" resultType="BbsDTO">
-		select t2.* from (select row_number() over (order by group desc, bstep asc) as num, t1.*
-		from bbs t1 where bnum > 0
+		select t2.* from (select row_number() over (order by bgroup desc, bstep asc) as num, t1.*
+		from bbs t1 where bnum > 0 and
 		
 		<choose>
-			<when test="searchType == TC">
+			<when test='option == "TC"'>
 				btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == T">
+			<when test='option == "T"'>
 				btitle like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == C">
+			<when test='option == "C"'>
 				bcontent like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == W">
+			<when test='option == "W"'>
 				bname like '%'||#{search}||'%'
 			</when>
 		<otherwise>
 			btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%' or bname like '%'||#{search}||'%'
 		</otherwise>
 		</choose>
-			
-			) t2 where num between #{startPage} and #{endPage}
+			) t2 where num between #{startRecord} and #{endRecord}
 	
 	</select>
 	
 	<select id="searchTotalRec" resultType="int">
-		select count(*) from (select row_number() over (order by group desc, bstep asc) as num, t1.*
-		from bbs t1 where bnum > 0
+		select count(*) from (select row_number() over (order by bgroup desc, bstep asc) as num, t1.*
+		from bbs t1 where bnum > 0 and
 		
 		<choose>
-			<when test="searchType == 'TC'">
+			<when test='option == "TC"'>
 				btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == 'T'">
+			<when test='option == "T"'>
 				btitle like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == 'C'">
+			<when test='option == "C"'>
 				bcontent like '%'||#{search}||'%'
 			</when>
-			<when test="searchType == 'W'">
+			<when test='option == "W"'>
 				bname like '%'||#{search}||'%'
 			</when>
 		<otherwise>

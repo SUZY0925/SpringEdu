@@ -1,7 +1,8 @@
 package com.kh.myapp;
 
 import java.util.List;
-import org.junit.Ignore;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.kh.myapp.bbs.dao.BbsDAO;
 import com.kh.myapp.bbs.dto.BbsDTO;
+import com.kh.myapp.util.FindCriteria;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })	
@@ -24,8 +26,10 @@ class BbsTest {
 	@Qualifier("bbsDAOImplXML")
 	BbsDAO bbsdao;
 	
-	/*@Test
-	void insert_test() {
+	
+	@Test
+	@Disabled
+	void insert_test() throws Exception {
 		BbsDTO bbsdto = new BbsDTO();
 		bbsdto.setBtitle("제목테스트4..");
 		bbsdto.setBname("이름4..");
@@ -34,9 +38,9 @@ class BbsTest {
 		bbsdao.write(bbsdto);
 	}
 	
-	@Ignore
 	@Test
-	void list_test() {
+	@Disabled
+	void list_test()  throws Exception {
 		List<BbsDTO> list;
 		
 		list = bbsdao.list();
@@ -45,16 +49,18 @@ class BbsTest {
 	
 	
 	@Test
-	void view_test() {
+	@Disabled
+	void view_test() throws Exception{
 		BbsDTO bbsdto = new BbsDTO();
 		bbsdto = bbsdao.view(1);
 		logger.info(bbsdto.toString());
 	}
-	*/
 	
-	/*
+	
+	
 	@Test
-	void modify_test() {
+	@Disabled
+	void modify_test() throws Exception{
 		BbsDTO bbsdto = new BbsDTO();
 		bbsdto.setBtitle("수정제목");
 		bbsdto.setBnum(948);
@@ -66,13 +72,15 @@ class BbsTest {
 	}
 	
 	@Test
-	void delete_test() {
+	@Disabled
+	void delete_test() throws Exception{
 		bbsdao.delete(949);
 	}
-	*/
 	
-/*	@Test
-	void reply_test() {
+	
+	@Test
+	@Disabled
+	void reply_test() throws Exception{
 		BbsDTO bbsdto = new BbsDTO();
 		bbsdto.setBtitle("답변제목");
 		bbsdto.setBname("답변이름");
@@ -82,11 +90,31 @@ class BbsTest {
 		bbsdto.setBstep(1);
 		bbsdto.setBindent(1);
 		bbsdao.reply(bbsdto);
-	}*/
+	}
 	
 	@Test
-	void replyView_test() {
+	@Disabled
+	void replyView_test() throws Exception{
 		logger.info(bbsdao.replyView(950).toString());
 	}
-
+	
+	
+	@Test
+	@Disabled
+	void searchList_test() throws Exception{
+		FindCriteria findCriteria= new FindCriteria(1,"T","수정");
+		List<BbsDTO> lst = bbsdao.searchList(findCriteria);
+		
+		for (BbsDTO bbsDTO : lst) {
+			logger.info(bbsDTO.toString());
+		}
+	}
+	
+	@Test
+	void getSearchListCount_test() throws Exception{
+		FindCriteria findCriteria = new FindCriteria();
+		findCriteria.setOption("C");
+		findCriteria.setSearch("수정");
+		logger.info(bbsdao.getSearchListCount(findCriteria)+"");
+	}
 }

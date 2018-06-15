@@ -17,68 +17,68 @@ public class BbsDAOImplXML implements BbsDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public void write(BbsDTO bbsdto) {
+	public void write(BbsDTO bbsdto) throws Exception{
 		sqlSession.insert("insert", bbsdto);
 	}
 
 	@Override
-	public List<BbsDTO> list() {
+	public List<BbsDTO> list() throws Exception{
 		return sqlSession.selectList("list");
 	}
 	
 	@Override
-	public List<BbsDTO> list(PageCriteria pageCriteria) {
+	public List<BbsDTO> list(PageCriteria pageCriteria) throws Exception{
 		return sqlSession.selectList("listPageCri",pageCriteria);
 	}
 
 	@Override
-	public int getListCount() {
+	public int getListCount() throws Exception{
 		return sqlSession.selectOne("totalRec");
 	}
 
 	@Override
-	public BbsDTO view(Integer bNum) {
+	public BbsDTO view(Integer bNum) throws Exception{
 		return sqlSession.selectOne("view",bNum);
 	}
 
 	@Override
-	public void modify(BbsDTO bbsdto) {
+	public void modify(BbsDTO bbsdto) throws Exception{
 		sqlSession.update("modify",bbsdto);
 	}
 
 	@Override
-	public void delete(Integer bNum) {
+	public void delete(Integer bNum) throws Exception{
 		sqlSession.delete("delete",bNum);
 	}
 
 	@Override
-	public BbsDTO pageNav(Integer bNum, Integer np) {
+	public BbsDTO pageNav(Integer bNum, Integer np) throws Exception{
 		return null;
 	}
 
 	@Override
-	public BbsDTO replyView(Integer bNum) {
+	public BbsDTO replyView(Integer bNum) throws Exception{
 		return sqlSession.selectOne("replyView", bNum);
 	}
 
 	@Override
-	public void reply(BbsDTO bbsdto) {
+	public void reply(BbsDTO bbsdto) throws Exception{
 		sqlSession.insert("reply",bbsdto);
 	}
 
 	@Override
-	public void updateStep(Integer bgroup, Integer bstep) {
+	public void updateStep(Integer bgroup, Integer bstep) throws Exception{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<BbsDTO> searchList(FindCriteria findCriteria) {
+	public List<BbsDTO> searchList(FindCriteria findCriteria) throws Exception{
 		return sqlSession.selectList("listFindCri",findCriteria);
 	}
 
 	@Override
-	public int getSearchListCount(FindCriteria findCriteria) {
+	public int getSearchListCount(FindCriteria findCriteria) throws Exception{
 		return sqlSession.selectOne("searchTotalRec",findCriteria);
 	}
 

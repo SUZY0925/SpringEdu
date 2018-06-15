@@ -46,6 +46,9 @@
                     <a class="dropdown-item" href="/member/memberList">Member List</a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/bbs/list">bbs</a>
+            </li>
 
         </ul>
         <form class="form-inline">

@@ -42,7 +42,7 @@ public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	
+	// Security 용 로그인, 로그아웃
 	@RequestMapping("/login")
 	public String securityLogin(Model model) {
 		
@@ -51,7 +51,6 @@ public class LoginController {
 			logger.info("인증" + auth.getPrincipal());
 			return "redirect:/";
 		}
-		model.addAttribute("login",new securityLoginVO("admin@kh.com","1234",AuthorityUtils.NO_AUTHORITIES));
 		model.addAttribute("find",new MemberVO());
 		return "login/login";
 		
@@ -65,6 +64,9 @@ public class LoginController {
 		}
 		return "redirect:/login/login";
 	}
+	//////////////////////////////////
+	
+	
 	
 	// 로그인화면 보여주기
 	@RequestMapping("/loginIN")

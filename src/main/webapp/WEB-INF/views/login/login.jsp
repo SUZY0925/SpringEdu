@@ -94,7 +94,7 @@
 	<%-- <c:url value="j_spring_security_check" var="loginUrl" /> --%>
 	<c:url value="login" var="loginUrl" />
 	<div class="container">
-	<form:form modelAttribute="login" action="${pageContext.request.contextPath}/${loginUrl}" method="post" id="loginform">
+	<form:form action="${pageContext.request.contextPath}/${loginUrl}" method="post" id="loginform">
 	<section class="form-simple">
 	    <div class="card">
 	        <div class="header pt-3 grey lighten-2">
@@ -104,12 +104,12 @@
 	        </div>
 	        <div class="card-body mx-4 mt-4">
 	            <div class="md-form">
-	                <form:input path="username" class="form-control" />
+	                <input type="email" name="username" class="form-control" />
 	                <label for="Form-email4">Your email</label>
 	                <form:errors path="username" cssClass="errmsg" />
 	            </div>
 	            <div class="md-form pb-3">
-		            <form:password path="password"  class="form-control" />
+		            <input type="password" name="password"  class="form-control" />
 			        <label for="Form-pass4">Your password</label>
 					<form:errors path="password" cssClass="errmsg" />
 				</div>
