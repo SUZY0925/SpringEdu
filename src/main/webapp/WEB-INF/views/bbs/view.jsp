@@ -35,7 +35,7 @@
 			$("[id^='b']").attr("readonly","readonly");
 		}
 		
-		$("#myfrm1").attr("action","modify.do").submit();
+		$("#myfrm1").attr("action","/bbs/modify").submit();
 		});
 	});
 </script>
@@ -46,68 +46,68 @@
 <jsp:include page="/WEB-INF/views/nav.jsp" flush="true" />
 <div class="container">
 <p class="h2" align="center">글 내용보기</p>
+<form name="frm_1" id="myfrm1" method="post">
 <table class="table">
-	<form name="frm_1" id="myfrm1">
 	<input type="hidden" name="reqPage" value="${rc.reqPage }" />
 		<tr>
 			<th class="w-25 p-3">제목</th>
 			<td scope="col"> 
-				<input type="text" name="bTitle" readonly="readonly" class="form-control" id="bTitle" value="${bbsdto.bTitle }" >
+				<input type="text" name="btitle" readonly="readonly" class="form-control" id="bTitle" value="${view.btitle }" >
 			</td>
 		</tr>
 		<tr>
 			<th class="w-25 p-3">작성자</th>
 			<td scope="col">
-				<input type="text" name="bName" readonly="readonly" class="form-control" value="${bbsdto.bName }" >
+				<input type="text" name="bname" readonly="readonly" class="form-control" value="${view.bname }" >
 			</td>
 		</tr>
 		<tr>
 			<th class="w-25 p-3">글번호</th>
 			<td scope="col"> 
-				<input type="text" name="bNum" readonly="readonly" class="form-control" id="" value="${bbsdto.bNum}" >
+				<input type="text" name="bnum" readonly="readonly" class="form-control" id="" value="${view.bnum}" >
 			</td>
 		</tr>
 		<tr>
 			<th class="w-25 p-3">조회수</th>
 			<td scope="col"> 
-				<input type="text" name="bHit" readonly="readonly" class="form-control" id="" value="${bbsdto.bHit }" >
+				<input type="text" name="bhit" readonly="readonly" class="form-control" id="" value="${view.bhit }" >
 			</td>
 		</tr>
 		<tr>
 			<th class="w-25 p-3">수정일</th>
 			<td scope="col"> 
-				<input type="text" name="bUdate" readonly="readonly" class="form-control" id="" value="${bbsdto.bUdate }" >
+				<input type="text" name="budate" readonly="readonly" class="form-control" id="" value="${view.budate }" >
 			</td>
 		</tr>
 		<tr>
 			<th class="w-25 p-3">내용</th>
 			<td scope="col">
-				<textarea name="bContent" readonly="readonly" class="form-control" id="bContent" rows="5">${bbsdto.bContent }</textarea>
+				<textarea name="bcontent" readonly="readonly" class="form-control" id="bContent" rows="5">${view.bcontent }</textarea>
 			</td>
 		</tr>
 		<tr id="viewMode">
 			<td colspan=2 align="right">
-			<a href="list.do?reqPage=${rc.reqPage }&option=${option }&search=${search }" class="btn btn-secondary" role="button" aria-pressed="true" >목록으로</a>
-			<a href="replyView.do?bNum=${bbsdto.bNum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" >답글달기</a>
+			<a href="list?reqPage=${rc.reqPage }&option=${option }&search=${search }" class="btn btn-secondary" role="button" aria-pressed="true" >목록으로</a>
+			<a href="reply?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" >답글달기</a>
 			<a href="javascript:void(0)?reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" id="modifyBtn">수정하기</a>
-			<a href="delete.do?bNum=${bbsdto.bNum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a>
+			<a href="delete?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a>
 			</td>
 		</tr>
 		<tr id="modifyMode">
 			<td colspan=2 align="right">
 			<input class="btn btn-secondary" type="submit" id="modifyOK" value="수정완료">
-			<a href="view.do?bNum=${bbsdto.bNum}&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">취소</a>
+			<a href="view?bnum=${view.bnum}&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">취소</a>
 			</td>
 		</tr>
-				<div style="float: right">
+				<div style="float: right;">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
-							<li class="page-item"><a class="btn" href="pageNav.do?bNum=${bbsdto.bNum}&np=1">◀</a></li>
-							<li class="page-item"><a class="btn" href="pageNav.do?bNum=${bbsdto.bNum}&np=0">▶</a></li>
+							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=1">◀</a></li>
+							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=0">▶</a></li>
 						</ul>
 					</nav>
 				</div>
-			</form>
 </table>
+</form>
 </div>
 <jsp:include page="/WEB-INF/views/footer.jsp" flush="true" />

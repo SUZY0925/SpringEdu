@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.myapp.bbs.dto.BbsDTO;
 import com.kh.myapp.util.FindCriteria;
 import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.util.RecordCriteria;
 
 @Repository
 public class BbsDAOImplXML implements BbsDAO{
@@ -27,8 +28,8 @@ public class BbsDAOImplXML implements BbsDAO{
 	}
 	
 	@Override
-	public List<BbsDTO> list(PageCriteria pageCriteria) throws Exception{
-		return sqlSession.selectList("listPageCri",pageCriteria);
+	public List<BbsDTO> list(RecordCriteria recordCriteria) throws Exception{
+		return sqlSession.selectList("listRecordCri",recordCriteria);
 	}
 
 	@Override
@@ -63,13 +64,19 @@ public class BbsDAOImplXML implements BbsDAO{
 
 	@Override
 	public void reply(BbsDTO bbsdto) throws Exception{
+		
+		updateStep(bbsdto);
+		
+		bbsdto.setBhit(0);
+		bbsdto.setBstep(bbsdto.getBstep()+1);
+		bbsdto.setBindent(bbsdto.getBindent()+1);
+		
 		sqlSession.insert("reply",bbsdto);
 	}
 
 	@Override
-	public void updateStep(Integer bgroup, Integer bstep) throws Exception{
-		// TODO Auto-generated method stub
-		
+	public void updateStep(BbsDTO bbsdto) throws Exception{
+		sqlSession.update("step", bbsdto);
 	}
 
 	@Override
@@ -82,6 +89,10 @@ public class BbsDAOImplXML implements BbsDAO{
 		return sqlSession.selectOne("searchTotalRec",findCriteria);
 	}
 
-	
+	@Override
+	public void updateHit(Integer bnum) throws Exception {
+		sqlSession.update("hit", bnum);
+	}
+
 
 }

@@ -3,21 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
-<!-- <script>
+<script>
 $(function() {
 	$("input[value='검색']").click(function() {
-		/* if ($("input[name=search]").val() == "") {
+		  if ($("input[name=search]").val() == "") {
 			window.alert("검색할 단어를 입력해주세요!");
 			$("input[name=search]").focus();
 			return false;
 		}
-		 location.href = "list.do?option=" + $("[name=option]").val() +"&search="+$("[name=search]").val() ; 
- */	
-		self.location = "list.do?reqPage=1"
+		 location.href = "list?option=" + $("[name=option]").val() +"&search="+$("[name=search]").val() ;  
+ 	
+		self.location = "list?reqPage=1"
 		+"&option="+$("[name=option]").val()+"&search="+$("[name=search]").val();
 	});	
 });
-</script> -->
+</script>
 <title>Insert title here</title>
 </head>
 
@@ -43,7 +43,7 @@ $(function() {
 						<th scope="row">${dto.bnum }</th>
 						<td><c:forEach begin="1" end="${dto.bindent }">　</c:forEach>
 						<c:if test="${dto.bindent >0}">└</c:if> <a class="text-dark"
-							href="view.do?bNum=${dto.bnum }&${page.getmakeURL(page.recordCriteria.reqPage) }">${dto.btitle }</a></td>
+							href="view?bnum=${dto.bnum }&${page.getmakeURL(page.recordCriteria.reqPage) }">${dto.btitle }</a></td>
 						<td>${dto.bname }</td>
 						<td>${dto.bcdate }</td>
 						<td>${dto.bhit }</td>
@@ -52,16 +52,16 @@ $(function() {
 			</tbody>
 		</table>
 
-		<%-- <table width="100%">
+		 <table width="100%">
 			<tr>
 				<td width="90%">
 					<ul id="pageing"
 						class="pagination pagination-sm justify-content-center">
 						<c:if test="${page.prev }">
 							<li class="page-item"><a class="page-link"
-								href="list.do?page.finalEndPage">◀</a></li>
+								href="list?page.finalEndPage">◀</a></li>
 							<li class="page-item"><a class="page-link"
-								href="list.do?${page.getmakeURL(page.startPage-1) }" aria-label="Previous">
+								href="list?${page.getmakeURL(page.startPage-1) }" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
 							</a></li>
 						</c:if>
@@ -73,23 +73,23 @@ $(function() {
 							</c:if>
 							<c:if test="${page.recordCriteria.reqPage != PAGE }">
 								<li class="page-item"><a class="page-link"
-									href="list.do?${page.getmakeURL(PAGE) }">${PAGE }</a></li>
+									href="list?${page.getmakeURL(PAGE) }">${PAGE }</a></li>
 							</c:if>
 						</c:forEach>
 
 						<c:if test="${page.next }">
 							<li class="page-item"><a class="page-link"
-								href="list.do?${page.getmakeURL(page.endPage+1) }" aria-label="Next">
+								href="list?${page.getmakeURL(page.endPage+1) }" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
 							</a></li>
 							<li class="page-item"><a class="page-link"
-								href="list.do?${page.getmakeURL(page.finalEndPage) }">▶</a></li>
+								href="list?${page.getmakeURL(page.finalEndPage) }">▶</a></li>
 						</c:if>
 					</ul>
 				</td>
-				<td> --%>
+				<td> 
 				<!-- <a href="/bbs/write" target="iframe_content">글쓰기</a> -->
-				<%-- </td>
+				 </td>
 			 </tr>
 			<tr>
 				<td>
@@ -103,9 +103,8 @@ $(function() {
 				<input type="button" class="btn btn-outline-dark btn-sm" id="searchBtn" value="검색" />
 				</td>
 			</tr>
-		</table> --%>
-
-		
+		</table> 
 	</div>
-</body>
+	
+	</body>
 </html>

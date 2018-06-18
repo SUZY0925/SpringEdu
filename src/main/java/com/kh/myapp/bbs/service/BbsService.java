@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.myapp.bbs.dto.BbsDTO;
 import com.kh.myapp.util.FindCriteria;
 import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.util.RecordCriteria;
 
 public interface BbsService {
 
@@ -14,7 +15,7 @@ public interface BbsService {
 	// 전체 글목록 가져오기
 	List<BbsDTO> list() throws Exception;
 	
-	List<BbsDTO> list(PageCriteria pageCriteria) throws Exception;
+	List<BbsDTO> list(RecordCriteria recordCriteria) throws Exception;
 
 	int getListCount() throws Exception;
 	
@@ -36,11 +37,13 @@ public interface BbsService {
 	// 답글 등록하기
 	void reply(BbsDTO bbsdto) throws Exception;
 
-	void updateStep(Integer bgroup, Integer bstep) throws Exception;
+	void updateStep(BbsDTO bbsdto) throws Exception;
 
 	// 검색한 글목록가져오기
 	List<BbsDTO> searchList(FindCriteria findCriteria) throws Exception;
 
 	// 검색한 글 전체 수 가져오기
 	int getSearchListCount(FindCriteria findCriteria) throws Exception;
+	
+	void updateHit(Integer bnum) throws Exception;
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
@@ -45,7 +46,17 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/member/memberList">Member List</a>
                 </div>
+                
             </li>
+            
+            <sec:authorize var="isAdminRole" access="hasRole('ADMIN')" > <!-- hasAuthority('ROLE_ADMIN') 도 사용 가능 . 대신 얘는 ROLE_붙여야함-->
+			<c:if test="${isAdminRole }">
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/admin">관리자</a>
+				</li>
+              </c:if>
+            </sec:authorize>  
+                
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/bbs/list">bbs</a>
             </li>

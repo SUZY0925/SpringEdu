@@ -6,9 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<!-- spring security 적용에서 제외 -->
-	<http pattern="/bbs/**" security="none"/>
 	<http pattern="/resources/**" security="none"/>
-	
 	
 	<!-- auto-config = "true" : 로그인페이지/http 기본인증/ 로그아웃 기능등을 제공 -->
 	<http auto-config="true">
@@ -18,6 +16,7 @@
 		<!-- login-processing-url="/j_spring_security_check"/> -->
 	
 		<!-- access="isAuthenticated()" : 인증된 사용자만 접근 -->
+		<intercept-url pattern="/bbs/**" access="isAuthenticated()"/>
 		<intercept-url pattern="/member/**" access="isAuthenticated()"/>
 		
 		<!-- access="hasAuthority('ROLE_ADMIN')" : admin만 접근 가능 -->

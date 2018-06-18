@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.myapp.bbs.dto.BbsDTO;
 import com.kh.myapp.util.FindCriteria;
 import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.util.RecordCriteria;
 
 @Repository
 public class BbsDAOImplJDBC implements BbsDAO {
@@ -24,7 +25,7 @@ public class BbsDAOImplJDBC implements BbsDAO {
 	}
 
 	@Override
-	public List<BbsDTO> list(PageCriteria pageCriteria) throws Exception {
+	public List<BbsDTO> list(RecordCriteria recordCriteria) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,7 +73,7 @@ public class BbsDAOImplJDBC implements BbsDAO {
 	}
 
 	@Override
-	public void updateStep(Integer bgroup, Integer bstep) throws Exception {
+	public void updateStep(BbsDTO bbsdto) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
@@ -87,6 +88,12 @@ public class BbsDAOImplJDBC implements BbsDAO {
 	public int getSearchListCount(FindCriteria findCriteria) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void updateHit(Integer bnum) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 

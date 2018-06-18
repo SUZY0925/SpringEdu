@@ -10,6 +10,7 @@ import com.kh.myapp.bbs.dao.BbsDAO;
 import com.kh.myapp.bbs.dto.BbsDTO;
 import com.kh.myapp.util.FindCriteria;
 import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.util.RecordCriteria;
 
 @Service
 public class BbsServiceImplXML implements BbsService {
@@ -29,8 +30,8 @@ public class BbsServiceImplXML implements BbsService {
 	}
 
 	@Override
-	public List<BbsDTO> list(PageCriteria pageCriteria) throws Exception {
-		return bbsdao.list(pageCriteria);
+	public List<BbsDTO> list(RecordCriteria recordCriteria) throws Exception {
+		return bbsdao.list(recordCriteria);
 	}
 
 	@Override
@@ -40,6 +41,7 @@ public class BbsServiceImplXML implements BbsService {
 
 	@Override
 	public BbsDTO view(Integer bNum) throws Exception {
+		bbsdao.updateHit(bNum);
 		return bbsdao.view(bNum);
 	}
 
@@ -69,8 +71,8 @@ public class BbsServiceImplXML implements BbsService {
 	}
 
 	@Override
-	public void updateStep(Integer bgroup, Integer bstep) throws Exception {
-		bbsdao.updateStep(bgroup, bstep);
+	public void updateStep(BbsDTO bbsdto) throws Exception {
+		bbsdao.updateStep(bbsdto);
 	}
 
 	@Override
@@ -81,6 +83,11 @@ public class BbsServiceImplXML implements BbsService {
 	@Override
 	public int getSearchListCount(FindCriteria findCriteria) throws Exception {
 		return bbsdao.getSearchListCount(findCriteria);
+	}
+
+	@Override
+	public void updateHit(Integer bnum) throws Exception {
+		bbsdao.updateHit(bnum);
 	}
 
 }

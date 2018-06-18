@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="view" resultType="BbsDTO">
-		select bnum, btitle, bname, bhit, bcontent, bcdate, bgroup, bstep, bindent
+		select bnum, btitle, bname, bhit, bcontent, bcdate, budate, bgroup, bstep, bindent
 		from bbs where bnum=#{bnum}
 	</select>
 	
@@ -40,11 +40,11 @@
 		from bbs where bnum = #{bnum}
 	</select>
 	
-	<select id="listPageCri" resultType="BbsDTO">
+	<select id="listRecordCri" resultType="BbsDTO">
 		select t2.*
 		from (select row_number() over (order by bgroup desc, bstep asc) as num, t1.*
 		from bbs t1) t2
-		where num between #{startPage} and #{endPage}
+		where num between #{startRecord} and #{endRecord}
 	</select>
 	
 	<select id="totalRec" resultType="int">
@@ -56,16 +56,16 @@
 		from bbs t1 where bnum > 0 and
 		
 		<choose>
-			<when test='option == "TC"'>
+			<when test='option == "제목 내용"'>
 				btitle like '%'||#{search}||'%' or bcontent like '%'||#{search}||'%'
 			</when>
-			<when test='option == "T"'>
+			<when test='option == "제목"'>
 				btitle like '%'||#{search}||'%'
 			</when>
-			<when test='option == "C"'>
+			<when test='option == "내용"'>
 				bcontent like '%'||#{search}||'%'
 			</when>
-			<when test='option == "W"'>
+			<when test='option == "작성자"'>
 				bname like '%'||#{search}||'%'
 			</when>
 		<otherwise>
@@ -99,4 +99,13 @@
 		</choose>
 			) t2 
 	</select>
+	
+	<update id="hit">
+		update bbs set bhit = bhit +1 where bnum = #{bnum}
+	</update>
+	
+	<update id="step">
+		update bbs set bstep = bstep+1 where bgroup = #{bgroup} and bstep > #{bstep}
+	</update>
+	
 </mapper>

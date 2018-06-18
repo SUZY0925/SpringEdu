@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %><!-- security용 taglib, 인증 인가에 대한 access를 제어 가능 -->
 
 <title>게시판 쓰기 양식</title>
 
@@ -40,9 +41,14 @@ $(function() {
 			</tr>
 			<tr>
 				<th scope="col">작성자</th>
+				<td scope="col">
+				<sec:authentication property="principal" var="user"/> ${user.name } (${user.username })</td>
+			</tr>
+<!-- 			<tr>
+				<th scope="col">작성자</th>
 				<td scope="col"><input type="text" class="form-control"
 					name="bname" placeholder="이름을 입력하세요." /></td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th scope="col">내용</th>
 				<td scope="col"><textarea class="form-control" name="bcontent"
@@ -52,7 +58,7 @@ $(function() {
 				<!-- 버튼 들어갈곳 -->
 				<td colspan=2 align="center">
 				<input class="btn btn-primary" type="submit" value="등록">
-					<a href="/bbs/list" class="btn btn-secondary" role="button" aria-pressed="true">목록으로</a> <!-- frontcontroller에서 cmd를 안거치고 바로 jsp로 오기때문에 param이라는 내장객체를 이용해서 바로 request를 받을 수 있음~ el구문임ㅎ -->
+					<a href="/bbs/list?reqPage=${param.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">목록으로</a>
 				</td>
 			</tr>
 		</table>

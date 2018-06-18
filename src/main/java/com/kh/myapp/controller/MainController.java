@@ -15,6 +15,4 @@ public class MainController {
 	public String csstest() {
 		return "csstest";
 	}
-	
-	
 }
