@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
 
@@ -47,6 +48,7 @@
 <div class="container">
 <p class="h2" align="center">글 내용보기</p>
 <form name="frm_1" id="myfrm1" method="post">
+<sec:csrfInput/>
 <table class="table">
 	<input type="hidden" name="reqPage" value="${rc.reqPage }" />
 		<tr>
@@ -89,8 +91,13 @@
 			<td colspan=2 align="right">
 			<a href="list?reqPage=${rc.reqPage }&option=${option }&search=${search }" class="btn btn-secondary" role="button" aria-pressed="true" >목록으로</a>
 			<a href="reply?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" >답글달기</a>
+			
+			<%-- <a href="javascript:void(0)?reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" id="modifyBtn">수정하기</a>
+			<a href="delete?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a> --%>
+			<c:if test="${user.username eq view.bid }">
 			<a href="javascript:void(0)?reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" id="modifyBtn">수정하기</a>
 			<a href="delete?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a>
+			</c:if>
 			</td>
 		</tr>
 		<tr id="modifyMode">

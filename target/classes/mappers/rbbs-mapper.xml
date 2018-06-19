@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kh.myapp.rbbs.dao.RbbsDAO">	
+	<insert id="rbbsInsert">
+		insert into replybbs (rnum, bnum, rid ,rname, rcontent, rgroup, rstep, rindent)
+				values(rbbsnum_seq.nextval,#{bnum},#{rid},#{rname},#{rcontent},rbbsnum_seq.nextval,0,0)
+	</insert>
+	<select id="rbbsAllList" resultType="RbbsDTO">
+		select t2.* from (select row_number() over
+			(ORDER BY rgroup desc, rstep asc) as num, t1.* FROM replybbs t1) t2 where bnum=#{bnum}
+	</select>
+	
+	<select id="rbbsList" parameterType="MAP" resultType="RbbsDTO">
+		select t2.* from (select row_number() over
+			(ORDER BY rgroup desc, rstep asc) as num,
+			t1.* FROM replybbs t1 where bnum = #{bnum})
+			t2 where num between #{recordCriteria.startRecord} and #{recordCriteria.endRecord}
+	</select>
+	
+	<update id="rbbsUpdate">
+		update replybbs set rcontent = #{rcontent} where rnum = #{rnum}
+	</update>
+	
+	<delete id="rbbsDelete">
+		delete from replybbs where rnum=#{rnum}
+	</delete>
+	
+	<select id="rbbsTotalRec" resultType="int">
+		select count(*) from replybbs where bnum = #{bnum}
+	</select>
+	
+	<select id="rbbsReply">
+		insert into replybbs (rnum, bnum, rid, rname, rcontent, rgroup, rstep, rindent)
+		values(rbbsnum_seq.nextval,#{bnum},#{rid},#{rname},#{rcontent},#{rgroup},#{rstep},#{rindent})
+	</select>
+	
+	<update id="goodOrBad">
+		<choose>
+			<when test="goodOrBad == 'good'">
+				update replybbs set rgood = rgood+1 where rnum=#{rnum}
+			</when>
+		</choose>
+		<choose>
+			<when test="goodOrBad == 'bad'">
+				update replybbs set rbad = rbad+1 where rnum=#{rnum}
+			</when>
+		</choose>
+	</update>
+	
+	<update id="rbbsUpdateStep">
+		update replybbs set rstep = rstep+1 where rgroup= #{rgroup} and rstep > #{rstep}
+	</update>
+	
+	<select id="rbbsReplyView" resultType="RbbsDTO">
+		select bnum, rgroup, rstep, rindent from replybbs where rnum = #{rnum}
+	</select>
+</mapper>

@@ -4,18 +4,18 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kh.myapp.bbs.dao.BbsDAO">	
 	<insert id="insert">
-		insert into bbs (bnum, btitle, bname, bhit, bcontent, bgroup, bstep, bindent) 
-		values(bbsnum_seq.nextval,#{btitle},#{bname},#{bhit},#{bcontent},bbsnum_seq.currval, 0,0)
+		insert into bbs (bnum, bid, btitle, bname, bhit, bcontent, bgroup, bstep, bindent) 
+		values(bbsnum_seq.nextval,#{bid},#{btitle},#{bname},#{bhit},#{bcontent},bbsnum_seq.currval, 0,0)
 	</insert>
 	
 	<select id="list" resultType="BbsDTO">
-		select bnum, btitle, bname, bhit, bcontent, bcdate, bgroup, bstep, bindent
+		select bnum, bid, btitle, bname, bhit, bcontent, bcdate, bgroup, bstep, bindent
 		from bbs
 		order by bgroup desc, bstep asc
 	</select>
 	
 	<select id="view" resultType="BbsDTO">
-		select bnum, btitle, bname, bhit, bcontent, bcdate, budate, bgroup, bstep, bindent
+		select bnum, bid, btitle, bname, bhit, bcontent, bcdate, budate, bgroup, bstep, bindent
 		from bbs where bnum=#{bnum}
 	</select>
 	
@@ -31,12 +31,12 @@
 	</delete>
 	
 	<insert id="reply">
-		insert into bbs (bnum, btitle, bname, bhit, bcontent, bgroup, bstep, bindent)
-		values(bbsnum_seq.nextval,#{btitle},#{bname},#{bhit},#{bcontent},#{bgroup},#{bstep},#{bindent})
+		insert into bbs (bnum, bid, btitle, bname, bhit, bcontent, bgroup, bstep, bindent)
+		values(bbsnum_seq.nextval, #{bid},#{btitle},#{bname},#{bhit},#{bcontent},#{bgroup},#{bstep},#{bindent})
 	</insert>
 	
 	<select id="replyView" resultType="BbsDTO">
-		select bnum, btitle, bname, bhit, bUdate, bcontent, bgroup, bstep, bindent
+		select bnum, bid, btitle, bname, bhit, bUdate, bcontent, bgroup, bstep, bindent
 		from bbs where bnum = #{bnum}
 	</select>
 	

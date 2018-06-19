@@ -33,6 +33,9 @@ $(function() {
 <div class="container">
 	<p class="h2" align="center">글쓰기</p>
 	<form action="/bbs/write" method="post" name="write_form">
+	<!-- security-context 설정때문에 post로 하는 일들이 모두 안먹혀서 이걸 form태그안에 작성해줌.. 아니면 spring form태그 사용. 내포되어있음 -->
+	<sec:csrfInput/>
+		<input type="hidden" name="bid" value="${user.username }"/>
 		<table class="table">
 			<tr>
 				<th class="w-25 p-3">제목</th>
@@ -42,7 +45,10 @@ $(function() {
 			<tr>
 				<th scope="col">작성자</th>
 				<td scope="col">
-				<sec:authentication property="principal" var="user"/> ${user.name } (${user.username })</td>
+				<%-- <sec:authentication property="principal" var="user"/>  --%>
+				<input type="text" class="form-control" name="bname" readOnly="readonly"
+				value="${user.name }" />
+				</td>
 			</tr>
 <!-- 			<tr>
 				<th scope="col">작성자</th>

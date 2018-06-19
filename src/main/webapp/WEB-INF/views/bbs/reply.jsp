@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
 
 <title>Insert title here</title>
@@ -11,7 +12,9 @@
 <div class="container">
 <p class="h2" align="center">답글작성</p>
 <form action="/bbs/reply" method="post">
+<sec:csrfInput/>
 <table class="table">
+	<input type="hidden" name="bid" value="${user.username }" />
 	<input type="hidden" name="bnum" value="${replyView.bnum }"/>
 	<input type="hidden" name="bgroup" value="${replyView.bgroup }" />
 	<input type="hidden" name="bstep" value="${replyView.bstep }" />
@@ -26,7 +29,8 @@
 		<tr>
 			<th class="w-25 p-3">작성자</th>
 			<td scope="col">
-				<input type="text" name="bname" class="form-control" value="${replyView.bname }" >
+				<input type="text" name="bname" class="form-control" readOnly="readonly" value="${user.name }" >
+<%-- 				<input type="text" name="bname" class="form-control" value="${replyView.bname }" > --%>
 			</td>
 		</tr>
 		<tr>
