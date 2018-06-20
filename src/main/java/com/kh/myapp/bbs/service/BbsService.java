@@ -29,7 +29,7 @@ public interface BbsService {
 	void delete(Integer bNum) throws Exception;
 
 	// 다음글 이전글 이동
-	BbsDTO pageNav(Integer bNum, Integer np) throws Exception;
+	void pageNav(Integer bNum, Integer np) throws Exception;
 
 	//원글 가져오기
 	BbsDTO replyView(Integer bNum) throws Exception;

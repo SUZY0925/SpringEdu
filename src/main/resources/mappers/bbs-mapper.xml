@@ -108,4 +108,17 @@
 		update bbs set bstep = bstep+1 where bgroup = #{bgroup} and bstep > #{bstep}
 	</update>
 	
+	<!-- <select id="pageNav" resultType="Integer">
+		<choose> 
+			<when test="np == 1">
+				select bnum from bbs where bnum=(select max(bnum) from bbs where bnum < #{bnum}
+			</when>
+		</choose>
+		<choose>
+			<when test="np == 0">
+				select bnum from bbs where bnum=(select min(bnum) from bbs where bnum > #{bnum}			
+			</when>
+		</choose>
+	</select> -->
+	
 </mapper>

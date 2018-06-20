@@ -123,7 +123,11 @@ public class BbsController {
 	}
 	
 
-
+	@RequestMapping(value="/reReply",method=GET)
+	public String reReply() {
+		
+		return "/rbbs/reply";
+	}
 
 
 

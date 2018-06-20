@@ -106,15 +106,16 @@
 			<a href="view?bnum=${view.bnum}&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">취소</a>
 			</td>
 		</tr>
-				<div style="float: right;">
+				<%-- <div style="float: right;">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
 							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=1">◀</a></li>
 							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=0">▶</a></li>
 						</ul>
 					</nav>
-				</div>
+				</div> --%>
 </table>
 </form>
 </div>
+<jsp:include page="/WEB-INF/views/rbbs/reply.jsp" />
 <jsp:include page="/WEB-INF/views/footer.jsp" flush="true" />

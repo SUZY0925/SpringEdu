@@ -36,19 +36,6 @@
 		values(rbbsnum_seq.nextval,#{bnum},#{rid},#{rname},#{rcontent},#{rgroup},#{rstep},#{rindent})
 	</select>
 	
-	<update id="goodOrBad">
-		<choose>
-			<when test="goodOrBad == 'good'">
-				update replybbs set rgood = rgood+1 where rnum=#{rnum}
-			</when>
-		</choose>
-		<choose>
-			<when test="goodOrBad == 'bad'">
-				update replybbs set rbad = rbad+1 where rnum=#{rnum}
-			</when>
-		</choose>
-	</update>
-	
 	<update id="rbbsUpdateStep">
 		update replybbs set rstep = rstep+1 where rgroup= #{rgroup} and rstep > #{rstep}
 	</update>
@@ -56,4 +43,16 @@
 	<select id="rbbsReplyView" resultType="RbbsDTO">
 		select bnum, rgroup, rstep, rindent from replybbs where rnum = #{rnum}
 	</select>
+	
+	<update id="goodOrBad" >
+		<choose>
+			<when test="goodOrBad == 'good'">
+				update replybbs set rgood = rgood+1 where rnum=#{rnum}
+			</when>
+			<when test="goodOrBad == 'bad'">
+				update replybbs set rbad = rbad+1 where rnum=#{rnum}
+			</when>
+		</choose>
+	</update>
+	
 </mapper>

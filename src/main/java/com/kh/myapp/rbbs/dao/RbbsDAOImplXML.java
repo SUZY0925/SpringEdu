@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.myapp.rbbs.dto.RbbsDTO;
 import com.kh.myapp.util.RecordCriteria;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Repository
 public class RbbsDAOImplXML implements RbbsDAO {
 
@@ -37,7 +39,7 @@ public class RbbsDAOImplXML implements RbbsDAO {
 	}
 
 	@Override
-	public void delete(String rnum) throws Exception {
+	public void delete(int rnum) throws Exception {
 		sqlSession.delete("rbbsDelete",rnum);
 	}
 
@@ -50,20 +52,18 @@ public class RbbsDAOImplXML implements RbbsDAO {
 	public void reply(RbbsDTO rbbsdto) throws Exception {
 		RbbsDTO rbbsOrgDTO = replyView(rbbsdto.getRnum());
 		updateStep(rbbsOrgDTO.getRgroup(), rbbsOrgDTO.getRstep());
-		
 		rbbsdto.setBnum(rbbsOrgDTO.getBnum());
 		rbbsdto.setRgroup(rbbsOrgDTO.getRgroup());
 		rbbsdto.setRstep(rbbsOrgDTO.getRstep()+1);
 		rbbsdto.setRindent(rbbsOrgDTO.getRindent()+1);
-		
 		sqlSession.insert("rbbsReply", rbbsdto);
 	}
 
 	@Override
-	public void updateStep(int bgroup, int bstep) throws Exception {
+	public void updateStep(int rgroup, int rstep) throws Exception {
 		Map<String,Object> map = new HashMap<>();
-		map.put("bgroup", bgroup);
-		map.put("bstep", bstep);
+		map.put("rgroup", rgroup);
+		map.put("rstep", rstep);
 		sqlSession.update("rbbsUpdateStep",map);
 	}
 
@@ -73,7 +73,7 @@ public class RbbsDAOImplXML implements RbbsDAO {
 	}
 
 	@Override
-	public void goodOrBad(String rnum, String goodOrBad) throws Exception {
+	public void goodOrBad(int rnum, String goodOrBad) throws Exception {
 		Map<String,Object> map = new HashMap<>();
 		map.put("rnum",rnum);
 		map.put("goodOrBad", goodOrBad);
@@ -87,7 +87,6 @@ public class RbbsDAOImplXML implements RbbsDAO {
 
 	@Override
 	public String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

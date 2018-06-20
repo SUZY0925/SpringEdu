@@ -14,6 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.kh.myapp.rbbs.dao.RbbsDAO;
 import com.kh.myapp.rbbs.dto.RbbsDTO;
+import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.util.RecordCriteria;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })	
@@ -27,7 +29,7 @@ class rbbsTest {
 	
 	@Test
 	@Disabled
-	void list_test()  throws Exception {
+	void listAll_test()  throws Exception {
 		List<RbbsDTO> list;
 		
 		list = rbbsdao.list(1);
@@ -55,6 +57,7 @@ class rbbsTest {
 	}
 	
 	@Test
+	@Disabled
 	void reply_test() throws Exception {
 		RbbsDTO rbbsdto = new RbbsDTO();
 		rbbsdto.setRnum(1743);
@@ -65,5 +68,23 @@ class rbbsTest {
 		rbbsdao.reply(rbbsdto);
 	}
 	
+	
+	@Test
+	@Disabled
+	void goodOrBad_test() throws Exception {
+		rbbsdao.goodOrBad(1743, "good");
+	}
+	
+	
+   @Test
+   void list() throws Exception {
+      RecordCriteria rc = new RecordCriteria(1,10);
+      List<RbbsDTO> list = null;
+      
+      list = rbbsdao.list(1, rc);
+      for (RbbsDTO rbbsdto : list) {
+			logger.info(rbbsdto.toString());
+		}
+   }
 	
 }

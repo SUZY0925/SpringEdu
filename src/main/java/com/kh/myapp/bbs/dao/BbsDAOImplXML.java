@@ -1,6 +1,8 @@
 package com.kh.myapp.bbs.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +55,12 @@ public class BbsDAOImplXML implements BbsDAO{
 	}
 
 	@Override
-	public BbsDTO pageNav(Integer bNum, Integer np) throws Exception{
-		return null;
+	public void pageNav(Integer bNum, Integer np) throws Exception{
+		/*Map<String,Object> map = new HashMap<>();
+		map.put("bnum", bNum);
+		map.put("np", np);
+		
+		view(sqlSession.selectOne("pageNav",map));*/
 	}
 
 	@Override

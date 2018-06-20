@@ -55,9 +55,8 @@ public class BbsDAOImplJDBC implements BbsDAO {
 	}
 
 	@Override
-	public BbsDTO pageNav(Integer bNum, Integer np) throws Exception {
+	public void pageNav(Integer bNum, Integer np) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

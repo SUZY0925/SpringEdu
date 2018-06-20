@@ -56,8 +56,8 @@ public class BbsServiceImplXML implements BbsService {
 	}
 
 	@Override
-	public BbsDTO pageNav(Integer bNum, Integer np) throws Exception {
-		return bbsdao.pageNav(bNum, np);
+	public void pageNav(Integer bNum, Integer np) throws Exception {
+		bbsdao.pageNav(bNum, np);
 	}
 
 	@Override
