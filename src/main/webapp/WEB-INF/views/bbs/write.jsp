@@ -70,5 +70,4 @@ $(function() {
 		</table>
 	</form>
 </div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/footer.jsp" />

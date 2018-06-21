@@ -2,7 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<<sec:authentication property="principal" var="user" scope="session"/>
+
+<sec:authentication property="principal" var="user" scope="session"/>
+<script>
+$(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+});
+</script>
 <body>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
@@ -13,7 +23,7 @@
 <header id="header">
 <div class="py-1 text-center filter-dark">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12"> 
 			<h1 class="display-3">SPRING FRAMEWORK</h1>
 		</div>
 	</div>
@@ -35,26 +45,24 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login/login">Log in</a>
-            </li>
-            <li class="nav-item">
-                <%-- <a class="nav-link" href="${pageContext.request.contextPath}/login/logOut">Log out</a> --%>
-                <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">Log out</a>
-            </li>
+            
+	            <li class="nav-item">
+	                <a class="nav-link" href="${pageContext.request.contextPath}/login/login">Log in</a>
+	            </li>
+	        
+		        <li class="nav-item">
+		            <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">Log out</a>
+		        </li>
+            
+            <sec:authorize var="isAdminRole" access="hasRole('ADMIN')" > <!-- hasAuthority('ROLE_ADMIN') 도 사용 가능 . 대신 얘는 ROLE_붙여야함-->
+            <c:if test="${isAdminRole }">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/member/memberList">Member List</a>
+                    <a class="dropdown-item" href="/admin/memberList">Member List</a>
+                    <a class="dropdown-item" href="/admin/admin">관리자페이지</a>
                 </div>
-                
-            </li>
-            
-            <sec:authorize var="isAdminRole" access="hasRole('ADMIN')" > <!-- hasAuthority('ROLE_ADMIN') 도 사용 가능 . 대신 얘는 ROLE_붙여야함-->
-			<c:if test="${isAdminRole }">
-				<li class="nav-item">
-					<a class="nav-link" href="/admin/admin">관리자</a>
-				</li>
+             </li>
               </c:if>
             </sec:authorize>  
                 

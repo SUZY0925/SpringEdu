@@ -7,12 +7,16 @@
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true"/>
 <script>
 	$(function() {
+		
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
+		
 		$("#afterID").hide();
 		$("#afterPW").hide();
 		
-		$("#joinBtn").on("click", function(e) {
-			location.href = "/member/memberJoin"
-		});
 
 		$("#loginBtn").on("click", function(e) {
 			e.preventDefault();
@@ -118,7 +122,7 @@
 	            <div class="text-center mb-4">
 	                <button type="button" class="btn btn-danger btn-block z-depth-2" id="loginBtn">Log in</button>
 	            </div>
-	            <p class="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="#" class="dark-grey-text font-weight-bold ml-1" id="joinBtn"> Sign up</a></p>
+	            <p class="font-small grey-text d-flex justify-content-center">Don't have an account? <a href="/member/memberJoin" class="dark-grey-text font-weight-bold ml-1" id="joinBtn"> Sign up</a></p>
 	        </div>
 	    </div>
 	</section>
@@ -129,9 +133,5 @@
 <jsp:include page="/WEB-INF/views/login/modalID.jsp" flush="true"/>
 <jsp:include page="/WEB-INF/views/login/modalPW.jsp" flush="true"/>
 </form:form>
-
-
-</body>
-</html>
 
 <jsp:include page="/WEB-INF/views/footer.jsp" flush="true"/>

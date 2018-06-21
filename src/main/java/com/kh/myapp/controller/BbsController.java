@@ -129,8 +129,4 @@ public class BbsController {
 		return "/rbbs/reply";
 	}
 
-
-
-
-
 }

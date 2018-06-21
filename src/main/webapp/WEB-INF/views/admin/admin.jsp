@@ -14,5 +14,4 @@
 <body>
 <sec:authentication property="principal" var="user"/>
 관리자 페이지 입니다.
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/footer.jsp" />

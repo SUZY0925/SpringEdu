@@ -118,4 +118,6 @@
 </form>
 </div>
 <jsp:include page="/WEB-INF/views/rbbs/reply.jsp" />
-<jsp:include page="/WEB-INF/views/footer.jsp" flush="true" />
+<br />
+<br />
+<jsp:include page="/WEB-INF/views/footer.jsp" />

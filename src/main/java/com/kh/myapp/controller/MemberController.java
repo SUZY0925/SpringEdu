@@ -88,15 +88,6 @@ public class MemberController {
 	}
 	
 
-	//회원목록
-	@RequestMapping(value = "/memberList")
-	public String memberList(Model model) {
-		List<MemberVO> alist = memberService.getMemberList();
-		model.addAttribute("memberVOS",alist);
-		return "/member/memberList";
-	}
-	
-	
 	
 	/*
 	 * 

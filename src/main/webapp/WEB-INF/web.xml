@@ -4,6 +4,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>
     	/WEB-INF/spring/root-context.xml
+    	/WEB-INF/spring/appServlet/security-context.xml
     </param-value>
   </context-param>
   <listener>
@@ -38,4 +39,21 @@
    </filter-mapping>
    <!-- 한글처리 끝 -->
    
+    <!-- 스프링 시큐리티 시작 -->
+  <filter>
+  	<filter-name>springSecurityFilterChain</filter-name>
+  	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>springSecurityFilterChain</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 스프링 시큐리티 끝 -->
+  
+  <!-- 다중로그인 금지 -->
+  <listener>
+  	<listener-class>
+  		org.springframework.security.web.session.HttpSessionEventPublisher
+  	</listener-class>
+  </listener>
 </web-app>

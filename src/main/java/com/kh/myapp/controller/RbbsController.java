@@ -38,7 +38,8 @@ public class RbbsController {
 	@RequestMapping(value="/write", method=POST)
 	public ResponseEntity<String> write(@RequestBody RbbsDTO rbbsdto) { // @RequestBody http의 body에 해당하는 부분에 있는 name을 RbbsDTO와 binding시키는..
 		ResponseEntity<String> responseEntity = null;
-		logger.info(rbbsdto.toString());
+		logger.info("댓글내용 : " + rbbsdto.toString());
+		
 		try {
 			rs.write(rbbsdto);
 			responseEntity = new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -100,18 +101,23 @@ public class RbbsController {
 	}*/
 	
 	@RequestMapping(value="/map/{bnum}/{reReqPage}",method=GET)
-	public ResponseEntity<Map<String,Object>> map2(@PathVariable int bnum,@PathVariable int reReqPage) {
+	public ResponseEntity<Map<String,Object>> map2(@PathVariable int bnum,@PathVariable int reReqPage) throws Exception {
 		
 		ResponseEntity<Map<String,Object>> responseEntity = null;
 		RecordCriteria recordCriteria = new RecordCriteria(reReqPage, 10);
 		Map<String,Object> map = new HashMap<>();
-		
 		try {
 			// 페이지 처리 
 			PageCriteria pageCriteria = new PageCriteria(recordCriteria, rs.replyTotalRec(bnum), 10);
 			
-			map.put("item", rs.list(bnum,recordCriteria));
+			map.put("rec", rs.list(bnum,recordCriteria));
 			map.put("pageCriteria", pageCriteria);
+			
+			List<RbbsDTO> lst = rs.list(bnum,recordCriteria);
+			
+			for (RbbsDTO rbbsDTO : lst) {
+				System.out.println(rbbsDTO.toString());
+			}
 			
 			responseEntity = new ResponseEntity<>(map,HttpStatus.OK);
 			} catch (Exception e) {
@@ -154,7 +160,6 @@ public class RbbsController {
 	@RequestMapping(value="/good/{rnum}",method=PUT)
 	public ResponseEntity<String> good(@PathVariable int rnum) {
 		ResponseEntity<String> responseEntity = null;
-		
 		try {
 			rs.goodOrBad(rnum,"good");
 			responseEntity = new ResponseEntity<String>("Success",HttpStatus.OK);

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.kh.myapp.rbbs.dao.RbbsDAO;
 import com.kh.myapp.rbbs.dto.RbbsDTO;
-import com.kh.myapp.util.PageCriteria;
+import com.kh.myapp.rbbs.service.RbbsService;
 import com.kh.myapp.util.RecordCriteria;
 
 @ExtendWith(SpringExtension.class)
@@ -77,6 +77,7 @@ class rbbsTest {
 	
 	
    @Test
+   @Disabled
    void list() throws Exception {
       RecordCriteria rc = new RecordCriteria(1,10);
       List<RbbsDTO> list = null;
@@ -85,6 +86,15 @@ class rbbsTest {
       for (RbbsDTO rbbsdto : list) {
 			logger.info(rbbsdto.toString());
 		}
+   }
+   
+   @Autowired
+   @Qualifier("rbbsServiceImplXML")
+   RbbsService rbbsService;
+   
+   @Test
+   void totalRecTest() throws Exception {
+   	logger.info("댓글개수"+rbbsService.replyTotalRec(966));
    }
 	
 }

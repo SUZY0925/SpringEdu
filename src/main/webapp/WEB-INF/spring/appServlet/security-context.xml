@@ -20,13 +20,14 @@
 	
 		<!-- access="isAuthenticated()" : 인증된 사용자만 접근 -->
 		<intercept-url pattern="/bbs/**" access="isAuthenticated()"/>
-		<intercept-url pattern="/member/**" access="isAuthenticated()"/>
 		
 		<!-- access="hasAuthority('ROLE_ADMIN')" : admin만 접근 가능 -->
 		<intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/>
 		
 		<!-- access="permitAll" : 모든 접근 허용 -->
+		<intercept-url pattern="/member/**" access="permitAll"/>
 		<intercept-url pattern="/**" access="permitAll"/>
+		
 		
 		<!-- 로그인 성공시 주소지정 -->
 		<form-login default-target-url="/" />

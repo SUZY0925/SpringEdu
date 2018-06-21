@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
 <title>댓글</title>
 <style>
 .textByte {
@@ -61,10 +60,15 @@
 	margin-right: auto;
 	margin-left: auto;
 }
+#pageNumList>li{
+      list-style:none;
+      display:inline;
+   }
 
 </style>
 <script>
-	var bNum = ${bbsdto.bNum};
+	/* var bNum = ${bbsdto.bNum}; */
+	var bNum = ${view.bnum};
 	var reReqPage = 1;
 	
 	// 글자수 제한 두기
@@ -78,7 +82,6 @@
 	    		if(strLength > limitbyte) {
 	    			break;
 	    		}
-	    		
 	    		var code = str.charCodeAt(i);
 	    		var ch = str.substr(i,1).toUpperCase();
 	    		
@@ -99,6 +102,13 @@
 
 
 	$(function() {
+		var login_id = "${user.username}";
+		var login_name = "${user.name}";
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header, token);
+		});
 		
 		//$("#modifyDiv").hide();// 댓글수정양식 숨기기
 		//$("#rereDiv").hide();// 대댓글 양식 숨기기
@@ -119,7 +129,7 @@
 			
 			// 댓글내용 분리 작업.. 
 			var strArray = li.text().split("|");
-			var reContent = strArray[1].substring(11); // 날짜랑 분리,,
+			var reContent = strArray[1].substring(13); // 날짜랑 분리,,
 
 			$(".title-diaLog").html(rNum);
 			$("#reContent").val(reContent);
@@ -146,12 +156,9 @@
 			var rNum = $(".title-diaLog").html();
 			console.log(rNum);
 			$.ajax({
-				type : "POST",
-				url : "/webedu/rbbs/delete",
+				type : "DELETE",
+				url : "/rbbs/delete/"+rNum,
 				dataType : "text",
-				data : {
-					rNum : rNum
-				},
 				success : function(result) {
 					replyList(reReqPage);
 					formhide();
@@ -163,19 +170,21 @@
 				}
 			});
 		});
-
+		
 		// 댓글 수정하기
 		$("#reModifyBtn").on("click", function() {
 			var rNum = $(".title-diaLog").html();
 			var rContent = $("#reContent").val();
 			$.ajax({
-				type : "POST",
-				url : "/webedu/rbbs/modify",
+				type : "PUT",
+				url : "/rbbs/modify",
 				dataType : "text",
-				data : {
-					rNum : rNum,
-					rContent : rContent
-				},
+				data : JSON.stringify({
+					rid : login_id,
+					rnum : rNum,
+					rcontent : rContent
+				}),
+				contentType:'application/json; charset=utf-8',
 				success : function(result) {
 					replyList(reReqPage);
 					formhide();
@@ -192,14 +201,8 @@
 
 		// 댓글 작성하기
 		$("#replyBtn").click(function() {
-			var writer = $("#writer").val();
 			var replyContent = $("#replyContent").val();
 
-			if ($("#writer").val() == "") {
-				alert("작성자를 입력해주세요!");
-				$("#writer").focus();
-				return false;
-			}
 			if ($("#replyContent").val() == "") {
 				alert("내용을 입력해주세요!");
 				$("#replyContent").focus();
@@ -211,10 +214,12 @@
 				url : "/rbbs/write",
 				dataType : "text",
 				data : JSON.stringify({
-					bnum : bnum,
-					rName : writer,
-					rContent : replyContent
+					rid : login_id,
+					bnum : bNum,
+					rname : login_name,
+					rcontent : replyContent
 				}),
+				contentType:'application/json; charset=utf-8',
 				success : function(result) {
 					formhide();
 					alert("댓글 작성 성공~");
@@ -242,29 +247,25 @@
 			// 댓글 작성하기를 클릭했을때
 			$("#rereplyBtn").click(function() {
 				
-				var reWriter = $("#reWriter").val();
 				var reReplyContent = $("#reReplyContent").val();
 
-				if ($("#reWriter").val() == "") {
-					alert("작성자를 입력해주세요!");
-					$("#reWriter").focus();
-					return false;
-				}
 				if ($("#reReplyContent").val() == "") {
 					alert("내용을 입력해주세요!");
 					$("#reReplyContent").focus();
 					return false;
 				}
-
+				
 				$.ajax({
 					type : "POST",
-					url : "/webedu/rbbs/reply",
+					url : "/rbbs/reply",
 					dataType : "text",
-					data : {
-						rNum : rNum,
-						rName : reWriter,
-						rContent : reReplyContent
-					},
+					data : JSON.stringify({
+						rid : login_id,
+						rnum : rNum,
+						rname : login_name,
+						rcontent : reReplyContent
+					}),
+					contentType:'application/json; charset=utf-8',
 					success : function(result) {
 						formhide();
 						alert("댓글 작성 성공~");
@@ -285,13 +286,9 @@
 			var rNum = li.attr("data-rNum");
 
 			$.ajax({
-				type : "POST",
-				url : "/webedu/rbbs/good",
+				type : "PUT",
+				url : "/rbbs/good/"+rNum,
 				dataType : "text",
-				data : {
-					rNum : rNum,
-					goodOrBad : "good"
-				},
 				success : function(result) {
 					replyList(reReqPage);
 					formhide();
@@ -309,13 +306,9 @@
 			var rNum = li.attr("data-rNum");
 
 			$.ajax({
-				type : "POST",
-				url : "/webedu/rbbs/bad",
+				type : "PUT",
+				url : "/rbbs/bad/"+rNum,
 				dataType : "text",
-				data : {
-					rNum : rNum,
-					goodOrBad : "bad"
-				},
 				success : function(result) {
 					replyList(reReqPage);
 					formhide();
@@ -345,35 +338,43 @@
 		$.ajax({
 			type : "GET",
 			url : "/rbbs/map/" + bNum + "/" + reReqPage,
-			dataType : "json",
+			dataType : "JSON",
 			success : function(data) {
 				 console.log(data);
-				 console.log(data.result);
+				 console.log(data.rec);
 				 console.log(data.pageCriteria);
-				$.each(data.result, function(idx, rec) {
-					if(rec.RINDENT==0 ) {
+				 
+				$.each(data.rec, function() {
+					
+					
+					 var date = new Date(this.rcdate);
+					 
+					 if(this.rindent==0 ) {
 						str+="<hr>";
 					}
 					
-					str += "<li data-rNum='" + rec.RNUM + "' class = 'reList'>";
-					if(rec.RINDENT>0) {
+					str += "<li data-rNum='" + this.rnum + "' class = 'reList'>";
+					if(this.rindent>0) {
 						str+= "<i class=\"material-icons\" style = \"font-size:15px;\">" + "&#xe5da;"+ "</i>";
 					}
-					str += "<b>" + rec.RNAME + "</b>"+ " | " + rec.RCDATE +"<br>";
+					str += "<b>" + this.rname + "</b>"+ " | " + date.toLocaleString('ko-KR') +"<br>";
 					
-					if(rec.RINDENT >1 ) {
-					str+= "<b>@" + rec.findWriter + " </b>";
-					}	
-						str += rec.RCONTENT + " | "
-						+ "<button id=\"modifyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>수정</button>"
-						+ "<button id=\"reReplyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>댓글</button>"
+					/* if(this.rindent >1 ) {
+					str+= "<b>@" + this.findWriter + " </b>";
+					}	 */
+						str += this.rcontent + " | ";
+					
+						if(this.rid == "${user.username}") {
+							str += "<button id=\"modifyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>수정</button>";
+						}
 						
-				        + "<button id='goodBtn' class='btn btn-outline-primary btn-sm'>"
+						str +="<button id=\"reReplyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>댓글</button>"
+						+ "<button id='goodBtn' class='btn btn-outline-primary btn-sm'>"
 				        + "<i class='glyphicon glyphicon-thumbs-up'></i>"
-				        + rec.RGOOD + "</button>"
+				        + this.rgood + "</button>"
 				        + "<button id='badBtn' class='btn btn-outline-primary btn-sm'>"
 				        + "<i class='glyphicon glyphicon-thumbs-down'></i>"
-				        + rec.RBAD + "</button>" 
+				        + this.rbad + "</button>" 
 				        
 						+ "</li>";
 				});
@@ -395,25 +396,21 @@
 		
 		// 이전표시
 		if(pageCriteria.prev) {
-			str += "<li><a href='1'>◀</a></li>";
-			str += "<li><a href='" + (pageCriteria.startPage-1) + "' aria-label=\"Prev\">" + 
+			str += "<li class='page-item'><a href='1'>◀</a></li>";
+			str += "<li class='page-item'><a href='" + (pageCriteria.startPage-1) + "' aria-label=\"Prev\">" + 
 			"<span aria-hidden=\"true\">&laquo;</span> <span class=\"sr-only\">Prev</span> "
 			+ "</a></li>";
 		
 		}
 		for(var i= pageCriteria.startPage, end=pageCriteria.endPage; i<=end; i++)  {
-			if(reReqPage == i) {
-			str += "<li class=\"page-item active\"><a class=\"page-link\" href='#'>" + i + "</a></li>";
-			} else {
-			str += "<li class=\"page-item \"><a class=\"page-link\" href='" + i + "'>" + i + "</a></li>";
-			}
+			str += "<li class=\"page-item \"><a href='" + i + "'>" + i + "</a></li>";
 		}
 		//다음 표시
 		if(pageCriteria.next) {
-			str += "<li><a href='" + (pageCriteria.endPage+1) + "' aria-label=\"Next\">" + 
+			str += "<li class='page-item'><a href='" + (pageCriteria.endPage+1) + "' aria-label=\"Next\">" + 
 			"<span aria-hidden=\"true\">&raquo;</span> <span class=\"sr-only\">Next</span> "
 			+ "</a></li>";
-			str += "<li><a href='" + (pageCriteria.finalEndPage) + "'>" + "▶</a></li>";			
+			str += "<li class='page-item'><a href='" + (pageCriteria.finalEndPage) + "'>" + "▶</a></li>";			
 		}
 		$("#pageNumList").html(str);
 	}
@@ -437,7 +434,7 @@
 		<!-- 댓글 작성하기 폼 -->
 		<div id="writeReply">
 			<input type="text" name="" id="writer" class="form-control-m"
-				placeholder="작성자" /><br>
+				placeholder="작성자" value="${user.name}" readOnly="readOnly"/><br>
 			<textarea name="rContent" id="replyContent" class="form-control-m"
 				cols="60" rows="3" placeholder="이곳에 댓글을 입력하세요."></textarea>
 			<div class="textByte"></div>
@@ -461,8 +458,7 @@
 		<!-- 대댓글 작성할때의 폼.. -->
 		<div id="rereDiv">
 			<span class="title-diaLog"></span>번 댓글에 댓글달기<br> <input
-				type="text" name="" id="reWriter" class="form-control-m"
-				placeholder="작성자" /><br>
+				type="text" name="" id="reWriter" value="${user.name}" readOnly="readOnly" class="form-control-m" /><br>
 			<textarea name="rContent" id="reReplyContent" class="form-control-m"
 				cols="60" rows="3" placeholder="이곳에 댓글을 입력하세요."></textarea>
 			<div class="textByte"></div>
@@ -473,18 +469,12 @@
 		</div>
 
 
-
-
 		<h4>댓글리스트</h4>
 		<ul id="reply">
 
 		</ul>
 
 		<ul id="pageNumList"
-			class="pagination pagination-m justify-content-center">
-
+			class="pagination">
 		</ul>
 	</div>
-
-</body>
-</html>
