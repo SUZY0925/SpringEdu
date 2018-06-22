@@ -69,7 +69,7 @@ public class RbbsServiceImplXML implements RbbsService {
 
 	@Override
 	public String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception {
-		return null;
+		return rbbsdao.replyWriterFind(bnum, rgroup, rindent);
 	}
 	
 

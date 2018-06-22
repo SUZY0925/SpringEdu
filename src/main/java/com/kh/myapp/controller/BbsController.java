@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,38 +55,7 @@ public class BbsController {
 	
 	@RequestMapping(value="/list",method = GET)
 	public void list(HttpServletRequest request, Model model) throws Exception {
-		
-		int reqPage = 0;
-		if (request.getParameter("reqPage") == null || request.getParameter("reqPage") == "") {
-			reqPage = 1;
-		} else {
-			reqPage = Integer.parseInt(request.getParameter("reqPage"));
-		}
-		
-		String option = request.getParameter("option");
-		String search = request.getParameter("search");
-		
-		List<BbsDTO> list = null;
-		PageCriteria pc = null;
-		RecordCriteria rc = null;
-				
-				if(search == null || search.trim().equals("")) {
-					rc = new RecordCriteria(reqPage);
-					list = bbsService.list(rc);
-					int totalRec = bbsService.getListCount();
-					pc = new PageCriteria(rc,totalRec);
-					
-				} else {
-					rc = new FindCriteria(reqPage,option,search);
-					list = bbsService.searchList((FindCriteria)rc);
-					int totalRec = bbsService.getSearchListCount((FindCriteria)rc);
-					pc = new PageCriteria(rc, totalRec);
-					
-					request.setAttribute("findCriteria", (FindCriteria)rc);
-				}
-				
-				request.setAttribute("list", list);
-				request.setAttribute("page", pc);
+		bbsService.list(request);
 	}
 
 	@RequestMapping(value="/view", method = GET)

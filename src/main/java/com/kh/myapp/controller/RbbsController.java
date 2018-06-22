@@ -109,15 +109,10 @@ public class RbbsController {
 		try {
 			// 페이지 처리 
 			PageCriteria pageCriteria = new PageCriteria(recordCriteria, rs.replyTotalRec(bnum), 10);
-			
+			//rs.replyWriterFind(bnum, rgroup, rindent); 전 댓글 작성자..찾기;
 			map.put("rec", rs.list(bnum,recordCriteria));
+			
 			map.put("pageCriteria", pageCriteria);
-			
-			List<RbbsDTO> lst = rs.list(bnum,recordCriteria);
-			
-			for (RbbsDTO rbbsDTO : lst) {
-				System.out.println(rbbsDTO.toString());
-			}
 			
 			responseEntity = new ResponseEntity<>(map,HttpStatus.OK);
 			} catch (Exception e) {
@@ -184,6 +179,34 @@ public class RbbsController {
 		}
 		return responseEntity;
 	}
+	
+	
+	@RequestMapping(value="/reply",method=POST)
+	public ResponseEntity<String> reply(@RequestBody RbbsDTO rbbsdto) { // @RequestBody http의 body에 해당하는 부분에 있는 name을 RbbsDTO와 binding시키는..
+		ResponseEntity<String> responseEntity = null;
+		logger.info("대댓글내용 : " + rbbsdto.toString());
+		
+		try {
+			rs.reply(rbbsdto);
+			responseEntity = new ResponseEntity<String>("Success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseEntity = new ResponseEntity<String>("Fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return responseEntity;
+	}
+	
+	/*
+	@RequestMapping(value="/findWriter")
+	public String findWriter(int bnum, int rgroup, int rindent) {
+		try {
+			return rs.replyWriterFind(bnum, rgroup, rindent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}*/
 	
 	
 }

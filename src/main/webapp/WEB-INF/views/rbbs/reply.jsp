@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <title>댓글</title>
 <style>
 .textByte {
@@ -340,13 +341,7 @@
 			url : "/rbbs/map/" + bNum + "/" + reReqPage,
 			dataType : "JSON",
 			success : function(data) {
-				 console.log(data);
-				 console.log(data.rec);
-				 console.log(data.pageCriteria);
-				 
 				$.each(data.rec, function() {
-					
-					
 					 var date = new Date(this.rcdate);
 					 
 					 if(this.rindent==0 ) {
@@ -355,13 +350,35 @@
 					
 					str += "<li data-rNum='" + this.rnum + "' class = 'reList'>";
 					if(this.rindent>0) {
+						for(var i = 0; i < this.rindent; i ++) {
+							str += "&nbsp&nbsp&nbsp";
+						}
 						str+= "<i class=\"material-icons\" style = \"font-size:15px;\">" + "&#xe5da;"+ "</i>";
 					}
 					str += "<b>" + this.rname + "</b>"+ " | " + date.toLocaleString('ko-KR') +"<br>";
 					
-					/* if(this.rindent >1 ) {
-					str+= "<b>@" + this.findWriter + " </b>";
-					}	 */
+					/* var findWriter = "";
+					 if(this.rindent >1 ) {
+							$.ajax({
+								type : "GET",
+								url : "/rbbs/findWriter",
+								data : {
+									bnum : bNum,
+									rgroup : this.rgroup,
+									rindent : this.rindent
+								},
+								dataType : "text",
+								success : function(data) {
+									findWriter = "<b>@"+ data + " </b>";
+									console.log("data : " + findWriter);
+									
+								}, error : function(error) {
+									console.log("실패" + error);
+								}
+							});
+					
+					}
+					 	str += findWriter; */
 						str += this.rcontent + " | ";
 					
 						if(this.rid == "${user.username}") {

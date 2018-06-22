@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.myapp.rbbs.dto.RbbsDTO;
 import com.kh.myapp.util.RecordCriteria;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 @Repository
 public class RbbsDAOImplXML implements RbbsDAO {
 
@@ -87,7 +85,12 @@ public class RbbsDAOImplXML implements RbbsDAO {
 
 	@Override
 	public String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception {
-		return null;
+		Map<String,Object> map = new HashMap<>();
+		map.put("bnum", bnum);
+		map.put("rgroup", rgroup);
+		map.put("rindent", rindent);
+		return sqlSession.selectOne("replyWriterFind", map);
 	}
+	
 	
 }
