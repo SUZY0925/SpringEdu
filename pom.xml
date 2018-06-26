@@ -323,6 +323,7 @@
                 </configuration>
             </plugin>
             
+            <!-- 메이븐을 통한 통캠서버 배포 시작 -->
             <plugin>
             	<groupId>org.apache.maven.plugins</groupId>
             	<artifactId>maven-war-plugin</artifactId>
@@ -343,7 +344,7 @@
             		<password>admin</password>
             	</configuration>
             </plugin>
-            
+            <!-- 메이븐을 통한 통캠서버 배포 종료 -->
         </plugins>
     </build>
 </project>

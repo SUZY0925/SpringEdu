@@ -47,15 +47,18 @@ $(function() {
             </li>
             
 	            <li class="nav-item">
-	                <a class="nav-link" href="${pageContext.request.contextPath}/login/login">Log in</a>
+	            <sec:authorize access="isAnonymous()">
+					<a class="nav-link" href="${pageContext.request.contextPath}/login/login">Log in</a>
+				</sec:authorize>
 	            </li>
 	        
 		        <li class="nav-item">
-		            <a class="nav-link" href="${pageContext.request.contextPath}/login/logout">Log out</a>
+		         <sec:authorize access="isAuthenticated()">
+					<a class="nav-link" href="${pageContext.request.contextPath}/login/logout">Log out</a>
+				</sec:authorize>
 		        </li>
             
-            <sec:authorize var="isAdminRole" access="hasRole('ADMIN')" > <!-- hasAuthority('ROLE_ADMIN') 도 사용 가능 . 대신 얘는 ROLE_붙여야함-->
-            <c:if test="${isAdminRole }">
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
@@ -63,7 +66,6 @@ $(function() {
                     <a class="dropdown-item" href="/admin/admin">관리자페이지</a>
                 </div>
              </li>
-              </c:if>
             </sec:authorize>  
                 
             <li class="nav-item">

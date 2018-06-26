@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <div class="container">
 <section id="content">
-<%-- 	<c:if test="${login.id != null}" >
-	${login.id}님 환영합니다. <br />
-	</c:if>
-	<c:if test="${login.id == null}" >
-	로그인을 해주세요.
-	</c:if> --%>
-	메인화면
+<sec:authorize access="isAnonymous()">
+로그인을 해주세요
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+${user.username }(${user.name })님 환영합니다.
+</sec:authorize>
+
 	</section>
 </div>
 <div class="container fixed-bottom">
