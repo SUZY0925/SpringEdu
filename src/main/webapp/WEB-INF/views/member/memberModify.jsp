@@ -21,7 +21,7 @@ $(function(){
 	
 	$("#modifyCancelBtn").on("click",function(e){
 		e.preventDefault();		
-			location.href="/member/memberList";
+			location.href="/admin/memberList";
 	});	 
 	      
 	});

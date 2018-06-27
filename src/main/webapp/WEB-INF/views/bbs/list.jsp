@@ -25,7 +25,6 @@ $(function() {
 
 	<div class="container">
 		<p class="h3" align="center">글목록</p>
-		<a href="/bbs/write" target="iframe_content">글쓰기</a>
 		<table class="table table-hover">
 			<thead class="thead-dark">
 				<tr>
@@ -88,7 +87,7 @@ $(function() {
 					</ul>
 				</td>
 				<td> 
-				<!-- <a href="/bbs/write" target="iframe_content">글쓰기</a> -->
+				<a href="/bbs/write" target="iframe_content">글쓰기</a>
 				 </td>
 			 </tr>
 			<tr>
