@@ -260,6 +260,7 @@
 					type : "POST",
 					url : "/rbbs/reply",
 					dataType : "text",
+					async:false,
 					data : JSON.stringify({
 						rid : login_id,
 						rnum : rNum,
@@ -336,6 +337,7 @@
 	// 댓글 목록 가져오기	
 	function replyList(reReqPage) {
 		var str = "";
+		var findWriter = "";
 		$.ajax({
 			type : "GET",
 			url : "/rbbs/map/" + bNum + "/" + reReqPage,
@@ -357,8 +359,8 @@
 					}
 					str += "<b>" + this.rname + "</b>"+ " | " + date.toLocaleString('ko-KR') +"<br>";
 					
-					/* var findWriter = "";
-					 if(this.rindent >1 ) {
+					 
+					 /* if(this.rindent >1 ) {
 							$.ajax({
 								type : "GET",
 								url : "/rbbs/findWriter",
@@ -369,8 +371,8 @@
 								},
 								dataType : "text",
 								success : function(data) {
-									findWriter = "<b>@"+ data + " </b>";
-									console.log("data : " + findWriter);
+									findWriter = "@"+ data;
+									console.log(findWriter);
 									
 								}, error : function(error) {
 									console.log("실패" + error);
@@ -378,7 +380,13 @@
 							});
 					
 					}
-					 	str += findWriter; */
+					 	str += "<input type='text' class='findW'></input>" */
+					 	
+					 	if(this.rindent>0) {
+							for(var i = 0; i < this.rindent; i ++) {
+								str += "&nbsp&nbsp&nbsp";
+							}
+						}
 						str += this.rcontent + " | ";
 					
 						if(this.rid == "${user.username}") {
@@ -397,6 +405,8 @@
 				});
 		
 				$("#reply").html(str);
+				/* $(".findW").html(findWriter); */
+				
 			
 				//페이지 리스트 호출
 				showPageList(data.pageCriteria);

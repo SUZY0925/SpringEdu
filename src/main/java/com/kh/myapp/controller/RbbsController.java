@@ -197,16 +197,17 @@ public class RbbsController {
 		return responseEntity;
 	}
 	
-	/*
+	
 	@RequestMapping(value="/findWriter")
 	public String findWriter(int bnum, int rgroup, int rindent) {
+		String writer = "";
 		try {
-			return rs.replyWriterFind(bnum, rgroup, rindent);
+			writer =  rs.replyWriterFind(bnum, rgroup, rindent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
-	}*/
+		return writer;
+	}
 	
 	
 }
