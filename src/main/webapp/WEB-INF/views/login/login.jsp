@@ -34,12 +34,15 @@
 					name, phone
 				},
 				success : function(data) {
-					$("#beforeID").hide();
-					$("#afterID").show();
-					$("#findIDstring").html(data);
+					if(data == "") {
+						alert("조회된 아이디가 없습니다.");
+					} else {
+						$("#beforeID").hide();
+						$("#afterID").show();
+						$("#findIDstring").html(data);
+					}
 				},
 				error : function(e) {
-					alert("조회된 아이디가 없습니다.");
 				}
 			}); 
 		});
@@ -55,18 +58,19 @@
 					id, birth
 				},
 				success : function(data) {
-					$("#beforePW").hide();
-					$("#afterPW").show();
-					$("#findPWstring").html(data);
+					if(data == "") {
+						alert("조회된 비밀번호가 없습니다.");
+					} else {
+						$("#beforePW").hide();
+						$("#afterPW").show();
+						$("#findPWstring").html(data);
+					}
 				},
 				error : function(e) {
-					alert("조회된 비밀번호가 없습니다.");
 				}
 			}); 
 		});
-		
 	});
-	
 	$(document).on('hidden.bs.modal','.modal',function(e) {
 		$("#findform").each(function(){
 		    this.reset();

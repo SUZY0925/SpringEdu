@@ -130,7 +130,7 @@
 			
 			// 댓글내용 분리 작업.. 
 			var strArray = li.text().split("|");
-			var reContent = strArray[1].substring(13); // 날짜랑 분리,,
+			var reContent = strArray[1].substring(24); // 날짜랑 분리,,
 
 			$(".title-diaLog").html(rNum);
 			$("#reContent").val(reContent);
@@ -358,55 +358,28 @@
 						str+= "<i class=\"material-icons\" style = \"font-size:15px;\">" + "&#xe5da;"+ "</i>";
 					}
 					str += "<b>" + this.rname + "</b>"+ " | " + date.toLocaleString('ko-KR') +"<br>";
-					
-					 
-					 /* if(this.rindent >1 ) {
-							$.ajax({
-								type : "GET",
-								url : "/rbbs/findWriter",
-								data : {
-									bnum : bNum,
-									rgroup : this.rgroup,
-									rindent : this.rindent
-								},
-								dataType : "text",
-								success : function(data) {
-									findWriter = "@"+ data;
-									console.log(findWriter);
-									
-								}, error : function(error) {
-									console.log("실패" + error);
-								}
-							});
-					
-					}
-					 	str += "<input type='text' class='findW'></input>" */
-					 	
-					 	if(this.rindent>0) {
+
+					if(this.rindent>0) {
 							for(var i = 0; i < this.rindent; i ++) {
 								str += "&nbsp&nbsp&nbsp";
 							}
-						}
+						} 
+						
 						str += this.rcontent + " | ";
 					
 						if(this.rid == "${user.username}") {
-							str += "<button id=\"modifyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>수정</button>";
+							str += "<button id=\"modifyBtn\" style=\"float:right\" class='btn btn-primary btn-sm'>수정</button>";
 						}
 						
-						str +="<button id=\"reReplyBtn\" style=\"float:right\" class='btn btn-outline-primary btn-sm'>댓글</button>"
-						+ "<button id='goodBtn' class='btn btn-outline-primary btn-sm'>"
-				        + "<i class='glyphicon glyphicon-thumbs-up'></i>"
-				        + this.rgood + "</button>"
-				        + "<button id='badBtn' class='btn btn-outline-primary btn-sm'>"
-				        + "<i class='glyphicon glyphicon-thumbs-down'></i>"
-				        + this.rbad + "</button>" 
-				        
+						str +="<button id=\"reReplyBtn\" style=\"float:right\" class='btn btn-primary btn-sm'>댓글</button>"
+				        + "<a href='#' id='goodBtn'><i class='material-icons'>thumb_up</i>"
+				        + this.rgood + "</a>  "
+				        + "<a href='#' id='badBtn'><i class='material-icons'>thumb_down</i>"
+				        + this.rbad +"</a>" 
 						+ "</li>";
 				});
 		
 				$("#reply").html(str);
-				/* $(".findW").html(findWriter); */
-				
 			
 				//페이지 리스트 호출
 				showPageList(data.pageCriteria);
@@ -466,7 +439,7 @@
 				cols="60" rows="3" placeholder="이곳에 댓글을 입력하세요."></textarea>
 			<div class="textByte"></div>
 			<button id="replyBtn" style="float: right"
-				class='btn btn-outline-primary btn-sm'>댓글작성</button>
+				class='btn btn-primary btn-sm'>댓글작성</button>
 		</div>
 
 		<!-- 댓글의 수정버튼을 눌렀을때의 폼.. -->
@@ -476,9 +449,9 @@
 				placeholder="이곳에 댓글을 입력하세요."></textarea>
 			<div class="textByte"></div>
 			<div style="float: right">
-				<button id="reModifyBtn" class='btn btn-outline-primary btn-sm'>수정</button>
-				<button id="reDelBtn" class='btn btn-outline-primary btn-sm'>삭제</button>
-				<button id="exitBtn" class='btn btn-outline-primary btn-sm'>닫기</button>
+				<button id="reModifyBtn" class='btn btn-primary btn-sm'>수정</button>
+				<button id="reDelBtn" class='btn btn-primary btn-sm'>삭제</button>
+				<button id="exitBtn" class='btn btn-primary btn-sm'>닫기</button>
 			</div>
 		</div>
 
@@ -490,8 +463,8 @@
 				cols="60" rows="3" placeholder="이곳에 댓글을 입력하세요."></textarea>
 			<div class="textByte"></div>
 			<div style="float: right">
-				<button id="rereplyBtn" class='btn btn-outline-primary btn-sm'>댓글작성</button>
-				<button id="reExitBtn" class='btn btn-outline-primary btn-sm'>닫기</button>
+				<button id="rereplyBtn" class='btn btn-primary btn-sm'>댓글작성</button>
+				<button id="reExitBtn" class='btn btn-primary btn-sm'>닫기</button>
 			</div>
 		</div>
 

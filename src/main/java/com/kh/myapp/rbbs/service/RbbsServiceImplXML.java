@@ -67,10 +67,4 @@ public class RbbsServiceImplXML implements RbbsService {
 		return rbbsdao.replyTotalRec(bnum);
 	}
 
-	@Override
-	public String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception {
-		return rbbsdao.replyWriterFind(bnum, rgroup, rindent);
-	}
-	
-
 }

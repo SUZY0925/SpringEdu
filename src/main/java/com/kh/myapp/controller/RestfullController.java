@@ -40,22 +40,35 @@ public class RestfullController {
 	// 아이디 찾기
 	@RequestMapping("/findID")
 	public String findID(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
-		if(result.hasErrors()) {
-			return "redirect:/";	
-		}else {
+		try {
 			MemberVO memberVO = memberService.findID(find);
-				return memberVO.getId();
+			return memberVO.getId();
+		} catch (Exception e) {
+			return null;
 		}
 	}
+	
+	/*
+	 *        @RequestMapping("/findIdOK")
+       public String findId(@ModelAttribute("find") MemberVO member,BindingResult result,Model model) {
+          String name = member.getName();
+          String phone = member.getPhone();
+          
+          String id = memberDAO.findId(name, phone);
+          model.addAttribute("findId",id);
+          System.out.println("아이디 : "+id);
+          return id;
+        }  
+	 * */
 
 	// 비밀번호 찾기
 	@RequestMapping("/findPW")
 	public String findPW(@ModelAttribute("find") MemberVO find,BindingResult result, Model model){
-		if(result.hasErrors()) {
-			return "redirect:/";	
-		}else {
-			MemberVO memberVO = memberService.findPW(find);
-				return memberVO.getPasswd();
+			try {
+				MemberVO memberVO = memberService.findPW(find);
+				return memberVO.getPasswd();	
+			} catch (Exception e) {
+				return null;
 			}
 	}
 	

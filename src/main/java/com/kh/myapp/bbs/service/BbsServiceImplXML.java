@@ -86,6 +86,8 @@ public class BbsServiceImplXML implements BbsService {
 				
 				request.setAttribute("list", list);
 				request.setAttribute("page", pc);
+				request.setAttribute("option",option);
+				request.setAttribute("search",search);
 	}
 	
 	@Override

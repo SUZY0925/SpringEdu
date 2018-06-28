@@ -35,5 +35,4 @@ public interface RbbsDAO {
 	// 댓글 갯수
 	int replyTotalRec(int bnum) throws Exception;
 
-	String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception;
 }

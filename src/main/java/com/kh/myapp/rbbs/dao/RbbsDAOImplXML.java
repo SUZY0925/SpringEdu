@@ -83,14 +83,5 @@ public class RbbsDAOImplXML implements RbbsDAO {
 		return sqlSession.selectOne("rbbsTotalRec",bnum);
 	}
 
-	@Override
-	public String replyWriterFind(int bnum, int rgroup, int rindent) throws Exception {
-		Map<String,Object> map = new HashMap<>();
-		map.put("bnum", bnum);
-		map.put("rgroup", rgroup);
-		map.put("rindent", rindent);
-		return sqlSession.selectOne("replyWriterFind", map);
-	}
-	
 	
 }

@@ -68,7 +68,7 @@ $(function() {
 						<c:forEach begin="${page.startPage }" end="${page.endPage }"
 							var="PAGE">
 							<c:if test="${page.recordCriteria.reqPage == PAGE }">
-								<li class="page-item active"><a class="page-link" href="#">${PAGE }</a></li>
+								<li class="page-item"><a class="page-link" href="javascript:void(0)">${PAGE }</a></li>
 							</c:if>
 							<c:if test="${page.recordCriteria.reqPage != PAGE }">
 								<li class="page-item"><a class="page-link"
@@ -87,11 +87,11 @@ $(function() {
 					</ul>
 				</td>
 				<td> 
-				<a href="/bbs/write" target="iframe_content">글쓰기</a>
+				<a href="/bbs/write">글쓰기</a>
 				 </td>
 			 </tr>
-			<tr>
-				<td>
+			<tr >
+				<td >
 					<select name="option" class="form-control-sm">
 						<option <c:out value="${option == '제목 내용' ? 'selected' : ''}" />>제목+내용</option>
 						<option <c:out value="${option == '작성자' ? 'selected' : ''}" />>작성자</option>
@@ -99,7 +99,7 @@ $(function() {
 						<option <c:out value="${option == '내용' ? 'selected' : ''}" />>내용</option>
 					</select>
 				<input type="text" name="search" id="" class="form-control-sm" value="${search }"/>
-				<input type="button" class="btn btn-outline-dark btn-sm" id="searchBtn" value="검색" />
+				<input type="button" class="btn btn-dark btn-sm" id="searchBtn" value="검색" />
 				</td>
 			</tr>
 		</table> 

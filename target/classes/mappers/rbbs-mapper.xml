@@ -55,9 +55,4 @@
 		</choose>
 	</update>
 	
-	<select id="replyWriterFind" resultType="String">
-		select t2.rname from (select row_number() over (ORDER BY rgroup desc, rstep asc) as num,
-		t1.* FROM replybbs t1 where bnum = #{bnum}) t2 where rgroup = #{rgroup} and rindent = #{rindent}-1
-	</select>
-	
 </mapper>

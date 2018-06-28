@@ -6,13 +6,6 @@
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
 
 <script>
-/* 	function Modify() {
-		document.getElementById("viewStyle").disabled= true;
-		document.getElementById("viewMode").style.display="none";
-		frm_1.bTitle.readOnly = false;
-		frm_1.bName.readOnly = false;
-		frm_1.bContent.readOnly = false;
-	} */
 	$(function(){/* html문서가 다 로딩 되었을때 실행된다는 뜻.. 이 구문을 쓰지 않으면 문서가 로딩이 되지 않았을때 실행되는 경우도 있어서 잘안됨 */
 		$("#viewMode").css({"display":""}); // display속성에 값을 안주게 한다는것은 보이게 한다는 뜻~
 		$("#modifyMode").css({"display":"none"});
@@ -23,7 +16,6 @@
 		if(status=="none") {
 			$("#viewMode").css({"display":"none"});
 			$("#modifyMode").css({"display":""});
-/* 			${"#bName, #bTitle, #bContent"}.removeAttr("readonly"); */
 			$("[id^='b']").removeAttr("readonly");	// id가 b로 시작하는것
 		}
 		});
@@ -92,8 +84,6 @@
 			<a href="list?reqPage=${rc.reqPage }&option=${option }&search=${search }" class="btn btn-secondary" role="button" aria-pressed="true" >목록으로</a>
 			<a href="reply?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" >답글달기</a>
 			
-			<%-- <a href="javascript:void(0)?reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" id="modifyBtn">수정하기</a>
-			<a href="delete?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a> --%>
 			<c:if test="${user.username eq view.bid }">
 			<a href="javascript:void(0)?reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true" id="modifyBtn">수정하기</a>
 			<a href="delete?bnum=${view.bnum }&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">삭제하기</a>
@@ -106,14 +96,6 @@
 			<a href="view?bnum=${view.bnum}&reqPage=${rc.reqPage }" class="btn btn-secondary" role="button" aria-pressed="true">취소</a>
 			</td>
 		</tr>
-				<%-- <div style="float: right;">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=1">◀</a></li>
-							<li class="page-item"><a class="btn" href="pageNav?bnum=${view.bnum}&np=0">▶</a></li>
-						</ul>
-					</nav>
-				</div> --%>
 </table>
 </form>
 </div>
