@@ -27,6 +27,7 @@
 						<th>생년월일</th>
 						<th>전화번호</th>
 						<th>성별</th>
+						<th>img</th>
 						<th>수정</th>
 						<th>삭제</th>
 					</tr>
@@ -40,6 +41,9 @@
 						<td>
 							<c:if test="${memberVO.gender == 'M'}">남자</c:if>
 							<c:if test="${memberVO.gender == 'W'}">여자</c:if>
+						</td>
+						<td>
+							<img src="/${memberVO.filename }" alt="" width="30" height="20"/>
 						</td>
 						<td>
 						<div class="col" style="margin-bottom:3px;">

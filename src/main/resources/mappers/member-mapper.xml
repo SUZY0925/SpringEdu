@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="memberInsert" parameterType="MemberVO">
-		insert into member(id,passwd,name,birth,phone,gender) values(#{id},#{passwd},#{name},#{birth},#{phone},#{gender})
+		insert into member(id,passwd,name,birth,phone,gender,filename) values(#{id},#{passwd},#{name},#{birth},#{phone},#{gender},#{filename})
 	</insert>
 	
 	<update id="memberUpdate" parameterType="MemberVO">
@@ -21,7 +21,8 @@
 			name 	= #{name},
 			birth 	= #{birth},
 			phone 	= #{phone},
-			gender 	= #{gender}
+			gender 	= #{gender},
+			filename=#{filename}
 		where id = #{id}
 	</update>
 	

@@ -4,9 +4,15 @@
 
 <title>게시판 쓰기 양식</title>
 
+<script src="/webjars/ckeditor/4.10.0/full/ckeditor.js"></script>
+<script src="/resources/js/ckEditor.js"></script>
 <jsp:include page="/WEB-INF/views/header.jsp" flush="true" />
 <script>
 $(function() {
+	
+	// ckEditor 삽입
+	let editor = CKEDITOR.replace("bcontent", ckeditor_config);
+	
 	$("input[value='등록']").click(function() {
 		if ($("input[name=btitle]").val() == "") {
 			window.alert("제목을 입력해주세요!");
@@ -18,9 +24,14 @@ $(function() {
 			$("input[name=bname]").focus();
 			return false;
 		}
-		if ($("textarea[name=bcontent]").val() == "") {
+/* 		if ($("textarea[name=bcontent]").val() == "") {
 			window.alert("내용을 입력해주세요!");
 			$("textarea[name=bcontent]").focus();
+			return false;
+		} */
+		
+		if(CKEDITOR.instances.bcontent.getData() == "") {
+			window.alert("내용을 입력해주세요!");
 			return false;
 		}
 		document.write_form.submit();
@@ -39,7 +50,7 @@ $(function() {
 		<table class="table">
 			<tr>
 				<th class="w-25 p-3">제목</th>
-				<td scope="col"><input type="text" class="form-control"
+				<td scope="col"><input type="text" class="form-control" id="btitle"
 					name="btitle" placeholder="제목을 입력하세요." /></td>
 			</tr>
 			<tr>
@@ -57,7 +68,7 @@ $(function() {
 			</tr> -->
 			<tr>
 				<th scope="col">내용</th>
-				<td scope="col"><textarea class="form-control" name="bcontent"
+				<td scope="col"><textarea class="form-control" name="bcontent" id="bcontent"
 						rows="10"></textarea></td>
 			</tr>
 			<tr>

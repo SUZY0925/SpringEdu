@@ -53,7 +53,7 @@ $(function(){
 </head>
 <jsp:include page="/WEB-INF/views/nav.jsp" flush="true"/>
 	<div class="container">
-	<form:form modelAttribute="memberVO" action="/member/memberJoinOK" method="post">
+	<form:form modelAttribute="memberVO" action="/member/memberJoinOK?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 	    <div class="card">
 	        <div class="header pt-3 grey lighten-2">
 	            <div class="row d-flex justify-content-start">
@@ -97,6 +97,10 @@ $(function(){
 				<form:input path="phone" id="phone" class="form-control" /> 
 				<label for="Form-text4">Your Phone</label>
 				<form:errors path="phone" type="text" />
+				</div>
+				
+				<div class="md-form">
+					Your Photo  : <input type="file" name="uploadFile" /> 
 				</div>
 				
 				<div class="custom-control custom-radio custom-control-inline" style="margin-top:10px">

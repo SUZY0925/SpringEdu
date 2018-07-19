@@ -6,7 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Data;
 
 /*"ID" VARCHAR2(30 BYTE) NOT NULL ENABLE, 
 "PASSWD" VARCHAR2(30 BYTE) NOT NULL ENABLE, 
@@ -17,9 +19,8 @@ import org.springframework.stereotype.Repository;
 "CDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
 "UDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
  CHECK (GENDER IN ('M', 'W')) ENABLE, */
+@Data
 public class MemberVO {
-	
-	
 	
 	
 	@Pattern(regexp="^[\\w=\\.]+@([\\w-]+\\.)+[\\w-]{2,4}",message="이메일 형식이 아닙니다.")
@@ -42,65 +43,9 @@ public class MemberVO {
 	private Date cdate;
 	private Date udate;
 	
+	private MultipartFile uploadFile; // 첨부파일이 여러개일 경우 배열로 받음
+	private String filename;
 	
-	public MemberVO() {
-		
-	}
-	
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public Date getCdate() {
-		return cdate;
-	}
-	public void setCdate(Date cdate) {
-		this.cdate = cdate;
-	}
-	public Date getUdate() {
-		return udate;
-	}
-	public void setUdate(Date udate) {
-		this.udate = udate;
-	}
-	@Override
-	public String toString() {
-		return "MemberVO [id=" + id + ", passwd=" + passwd + ", name=" + name + ", birth=" + birth + ", phone=" + phone
-				+ ", gender=" + gender + ", cdate=" + cdate + ", udate=" + udate + "]";
-	}
 	
 	
 }

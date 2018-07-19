@@ -21,7 +21,14 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />	<!-- views에서 찾아라. -->
 		<beans:property name="suffix" value=".jsp" />				<!-- 찾는 대상은.. .jsp로 끝나는 거.. -->
 	</beans:bean>
-	
+
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize : 업로드가능한 파일용량 제한 1M = 1024 kbyte = 1048576byte
+			 maxInMemorySize : 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기 -->
+		<beans:property name="maxUploadSize" value="2097152"></beans:property>
+		<beans:property name="maxInMemorySize" value="2097152"></beans:property>
+	</beans:bean>
+<!-- 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
 	<context:component-scan base-package="com.kh.myapp.controller" />
 	
 	

@@ -10,6 +10,7 @@
 	<http pattern="/img/**" security="none"/>
 	<http pattern="/css/**" security="none"/>
 	<http pattern="/js/**" security="none"/>
+	<!-- <http pattern="/member/**" security="none"/> -->
 	
 	<!-- auto-config = "true" : 로그인페이지/http 기본인증/ 로그아웃 기능등을 제공 -->
 	<http auto-config="true">

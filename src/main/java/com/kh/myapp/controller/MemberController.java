@@ -1,9 +1,6 @@
 package com.kh.myapp.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,13 +11,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.myapp.login.vo.LoginVO;
+import com.kh.myapp.member.service.FileUpLoad;
 import com.kh.myapp.member.service.MemberService;
 import com.kh.myapp.member.vo.MemberVO;
 
@@ -36,6 +31,8 @@ public class MemberController {
 	MemberService memberService;
 	
 	
+	@Autowired
+	FileUpLoad fileUpLoad;
 	
 	// 회원가입
 	@RequestMapping(value = "/memberJoin")
@@ -44,16 +41,25 @@ public class MemberController {
 		model.addAttribute("memberVO",new MemberVO());
 		return "/member/memberJoin";
 	}
+
 	
 	// 회원가입 OK
 	@RequestMapping(value = "/memberJoinOK", method = RequestMethod.POST)
-	public String memberJoinOK(@Valid MemberVO memberVO, BindingResult result) {
+	public String memberJoinOK(@Valid MemberVO memberVO, BindingResult result,HttpServletRequest request) {
 		if(result.hasErrors()) {
 			logger.info("회원가입 오.류.발.생.★");
 			return "/member/memberJoin";
 		}else {
-			memberService.memberInsert(memberVO);
-			return "redirect:/member/memberList";
+			logger.info(memberVO.toString());
+			
+			if(fileUpLoad.upload(memberVO, request)) {
+				// 파일 첨부 업로드 성공
+				memberService.memberInsert(memberVO);
+				return "redirect:/admin/memberList";
+			} else {
+				// 파일 첨부 업로드 실패
+				return "/member/memberJoin";
+			}
 		}
 	}
 
@@ -72,7 +78,7 @@ public class MemberController {
 			return "/member/memberModify";
 		}else {
 			memberService.memberUpdate(memberVO);
-			return "redirect:/member/memberList";
+			return "redirect:/admin/memberList";
 		}
 	}
 	
@@ -81,9 +87,9 @@ public class MemberController {
 	public String memberDelete(@PathVariable String id, Model model) {
 		if(memberService.getByMemberId(id) != null) {
 			memberService.memberDelete(id);
-			return "redirect:/member/memberList";
+			return "redirect:/admin/memberList";
 		}else {
-			return "/member/memberList";
+			return "/admin/memberList";
 		}
 	}
 	
